@@ -19,6 +19,15 @@
     },
     "user": {
       "tags": []
+    },
+    "eden-ui": {
+      "tags": []
+    },
+    "school-e2e": {
+      "tags": []
+    },
+    "school": {
+      "tags": []
     }
   }
 }

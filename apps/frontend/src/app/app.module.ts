@@ -15,11 +15,14 @@ import { UserService } from './services/user.service';
 import { TeacherService } from './services/teacher.service';
 import { SubjectService } from './services/subject.service';
 import { MessageService } from './services/message.service';
+import { EdenUiModule } from '@eden-apps/eden-ui';
+import { LayoutComponent } from './layout/layout.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    LayoutComponent
   ],
   imports: [
     BrowserModule,
@@ -28,10 +31,15 @@ import { MessageService } from './services/message.service';
     HttpClientModule,
     AppRoutingModule,
     UiModule,
-    CoreModule
+    CoreModule,
+    EdenUiModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: JWTInterceptor, multi: true },
+    { 
+      provide: HTTP_INTERCEPTORS,
+      useClass: JWTInterceptor,
+      multi: true
+    },
     AuthService,
     StudentService,
     MessageService,

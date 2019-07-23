@@ -16,7 +16,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@eden-apps/user": ["libs/user/src/index.ts"]
+      "@eden-apps/user": ["libs/user/src/index.ts"],
+      "@eden-apps/eden-ui": ["libs/eden-ui/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
