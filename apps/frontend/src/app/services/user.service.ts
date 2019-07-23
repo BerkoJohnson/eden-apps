@@ -3,21 +3,10 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { map, tap } from 'rxjs/operators';
 
-// import {} from '@'
-
-export interface IUser {
-  name: string;
-  email: string;
-  contacts: string[];
-  password?: string;
-  userId?: string;
-  createdAt?: Date;
-  updatedAt?: Date;
-}
-
+import {User} from '@eden-apps/user';
 
 export interface IUserPayload {
-  users: IUser[];
+  users: User[];
   count: number;
   hasNextPage: boolean;
   hasPrevPage: boolean;
@@ -32,7 +21,7 @@ export interface IUserPayload {
 })
 export class UserService {
   // tslint:disable-next-line: variable-name
-  _user = new BehaviorSubject<IUser>(null);
+  _user = new BehaviorSubject<User>(null);
   user$ = this._user.asObservable();
   // tslint:disable-next-line:variable-name
   private _users = new BehaviorSubject<IUserPayload>(null);
@@ -62,7 +51,7 @@ export class UserService {
   }
 
 
-  createUser(FormData: IUser) {
+  createUser(FormData: User) {
     return this.http
       .post('/api/users', FormData, { observe: 'response' })
       .pipe(
@@ -72,8 +61,8 @@ export class UserService {
       );
   }
 
-  addPeriod(userId: string, periods: [{ day: string, time: string }]): Observable<IUser> {
-    return this.http.patch<IUser>(`/api/users/${userId}/periods`, periods).pipe(
+  addPeriod(userId: string, periods: [{ day: string, time: string }]): Observable<User> {
+    return this.http.patch<User>(`/api/users/${userId}/periods`, periods).pipe(
       map(d => {
         this.getUser(userId).subscribe();
         return d;
@@ -81,8 +70,8 @@ export class UserService {
     );
   }
 
-  resignPeriod(id: string, periodData): Observable<IUser> {
-    return this.http.patch<IUser>('/api/users/resign-period', periodData).pipe(
+  resignPeriod(id: string, periodData): Observable<User> {
+    return this.http.patch<User>('/api/users/resign-period', periodData).pipe(
       map(d => {
         this.getUser(id).subscribe();
         return d;
@@ -91,7 +80,7 @@ export class UserService {
   }
 
   getUser(id) {
-    return this.http.get<IUser>('/api/users/' + id).pipe(
+    return this.http.get<User>('/api/users/' + id).pipe(
       map(d => this._user.next(d))
     );
   }
