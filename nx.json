@@ -1,0 +1,24 @@
+{
+  "npmScope": "eden-apps",
+  "implicitDependencies": {
+    "angular.json": "*",
+    "package.json": "*",
+    "tsconfig.json": "*",
+    "tslint.json": "*",
+    "nx.json": "*"
+  },
+  "projects": {
+    "frontend-e2e": {
+      "tags": []
+    },
+    "frontend": {
+      "tags": []
+    },
+    "api": {
+      "tags": []
+    },
+    "user": {
+      "tags": []
+    }
+  }
+}
