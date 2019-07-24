@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { StudentService, ListPayload } from '../../services/student.service';
 
 @Component({
   selector: 'eden-apps-dashboard',
@@ -6,6 +8,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  constructor() {}
-  ngOnInit() {}
+  students$: Observable<ListPayload>;
+
+  constructor(private studentsService: StudentService) { }
+
+  ngOnInit() {
+    this.students$ = this.studentsService.students$;
+  }
+
 }

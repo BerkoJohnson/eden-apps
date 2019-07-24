@@ -11,7 +11,7 @@
 </form>
 <hr class="hr" />
 
-<ul class="list" *ngIf="subjects$ | async as list; else noSubject">
+<ul class="list" *ngIf="(subjects$ | async) as list; else noSubject">
   <li
     *ngFor="let subject of list.subjects; let i = index"
     class="list-item"
@@ -20,8 +20,8 @@
   >
     <span class="name">{{ subject?.title }}</span>
     <span class="actions" *ngIf="selectedID === subject._id">
-      <a class="yellow" [routerLink]="[subject._id]">View</a>
-        <a class="blue" [routerLink]="[subject._id, 'periods']">Periods</a>
+      <a class="purple" [routerLink]="[subject._id]">View</a>
+      <a class="blue" [routerLink]="[subject._id, 'periods']">Periods</a>
       <a class="green" [routerLink]="[subject._id, 'assign-teacher']">Assign</a>
     </span>
   </li>
@@ -30,7 +30,7 @@
   <h5>No Subject Found</h5>
 </ng-template>
 
-<div class="pagination" *ngIf="subjects$ | async as list">
+<div class="pagination" *ngIf="(subjects$ | async) as list">
   <button
     class="previous"
     (click)="gotoPage(list.prevPage)"

@@ -1,19 +1,23 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AppRoutingModule } from '../app-routing.module';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import {NgModule} from '@angular/core';
+import {DashboardComponent} from './dashboard/dashboard.component';
+import {SummaryComponent} from './dashboard/summary/summary.component';
+import {SchedulesComponent} from './dashboard/schedules/schedules.component';
+import {AppRoutingModule} from '../app-routing.module';
+import {CommonModule} from '@angular/common';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
-    declarations: [
-        DashboardComponent,
-    ],
-    imports: [
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        AppRoutingModule
-    ],
-    exports: [AppRoutingModule]
+  declarations: [
+    DashboardComponent,
+    SummaryComponent,
+    SchedulesComponent
+  ],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    AppRoutingModule
+  ],
+  exports: [AppRoutingModule]
 })
-export class CoreModule {}
+export class CoreModule {
+}

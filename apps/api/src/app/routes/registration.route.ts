@@ -6,6 +6,11 @@ import { RegistrationController } from '../controllers/registration.controller';
 export class RegistrationRoutes implements IRoute {
   public routes(app: Application) {
     // REGISTRATIONS
+
+    app
+      .route(`/api/registrations/summary`)
+      .get([checkJWT], RegistrationController.getStudentsBySubjectsRegistered);
+
     app
       .route('/api/registrations/:id')
       .get([checkJWT], RegistrationController.getRegistration)

@@ -10,7 +10,7 @@ export interface ISummary {
   subjects: ISubject[];
   lessons: [{
     day: string;
-    subject: string;
+    subject: ISubject;
     time: string;
     status: string;
     students: IStudent[];
@@ -213,8 +213,8 @@ export class StudentService {
     );
   }
 
-  getRegistrationsForMonth(month: string): Observable<IRegs[]> {
+  getRegistrationsForMonth(month: string): Observable<IRegistrationSummary[]> {
     const thisMonth = month || this.thisMonth;
-    return this.http.get<IRegs[]>(`/api/students/registered-subjects?month=${thisMonth}`);
+    return this.http.get<IRegistrationSummary[]>(`/api/students/registered-subjects?month=${thisMonth}`);
   }
 }

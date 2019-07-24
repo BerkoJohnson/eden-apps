@@ -20,7 +20,7 @@
   >
     <span class="name">{{ teacher?.name }}</span>
     <span class="actions" *ngIf="selectedID === teacher._id">
-      <a class="yellow" [routerLink]="[teacher._id]">View</a>
+      <a class="purple" [routerLink]="[teacher._id]">View</a>
       <a class="green" [routerLink]="[teacher._id, 'assign-subject']">Subjects</a>
     </span>
   </li>

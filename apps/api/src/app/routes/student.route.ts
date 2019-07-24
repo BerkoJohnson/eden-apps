@@ -20,6 +20,10 @@ export class StudentRoutes implements IRoute {
       .route(`${STUDENT_URL}/registered-subjects`)
       .get([checkJWT], StudentController.getStudentsRegisteredThisMonthAndSubjects);
 
+      app
+      .route(`${STUDENT_URL}/registered-subjects`)
+      .get([checkJWT], StudentController.getStudentsRegisteredThisMonthAndSubjects);
+
     app
       .route(`${STUDENT_URL}/:id`)
       .patch([checkJWT], StudentController.updateStudent)

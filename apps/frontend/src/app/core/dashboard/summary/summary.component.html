@@ -1,0 +1,26 @@
+<div class="table">
+  <h5 class="title">Registration Summary for this month: {{ thisMonth }}</h5>
+  <table>
+    <tr>
+      <th>S/N</th>
+      <th>Subject</th>
+      <th>Number of Students</th>
+      <!-- <th>Students Registered</th> -->
+    </tr>
+    <tr *ngFor="let subject of subjectRegistration; let i = index">
+      <td>{{ i + 1 }}</td>
+      <td>{{ subject.title }}</td>
+      <td>{{ subject.noOfStudents }}</td>
+      <!-- <td>
+        <a
+          style="margin:0 5px"
+          *ngFor="let student of subject.students; let j = index"
+          [routerLink]="['students', student._id]"
+          >({{ j + 1 }}) {{ student.name }}</a
+        >&nbsp;&nbsp;
+        <hr />
+        <small>Total: {{ subject.noOfStudents }}</small>
+      </td> -->
+    </tr>
+  </table>
+</div>

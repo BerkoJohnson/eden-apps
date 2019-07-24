@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IRegs, ISummary, StudentService } from '../../../services/student.service';
+import { IRegs, ISummary, StudentService, IRegistrationSummary } from '../../../services/student.service';
 
 @Component({
   selector: 'eden-apps-students-home',
@@ -7,7 +7,7 @@ import { IRegs, ISummary, StudentService } from '../../../services/student.servi
   styleUrls: ['./students-home.component.scss']
 })
 export class StudentsHomeComponent implements OnInit {
-  studentsRegs: IRegs[];
+  studentsRegs: IRegistrationSummary[];
 
   summary: ISummary;
   daysInWeek = [

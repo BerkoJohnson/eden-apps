@@ -273,7 +273,7 @@ export class StudentController {
         .where('day')
         .equals(todayName);
 
-      let lessonArray: any = [];
+      const lessonArray: any = [];
       for (let i = 0; i < lessonsToday.length; i++) {
         const currentLesson = lessonsToday[i];
         const lessonObj: any = {};
@@ -304,49 +304,6 @@ export class StudentController {
     }
   }
 
-  public static async getStudentsBySubjectsRegistered(
-    req: Request,
-    res: Response
-  ) {
-    try {
-      const month: string = req.query.month;
-      const s = await Registration.aggregate()
-        .match({ month: month })
-        .unwind('$subjects')
-        .group({ _id: '$subjects', noOfStudents: { $sum: 1 } })
-        .sort({ noOfStudents: -1 });
-
-      const subjects: any = [];
-      for (let i = 0; i < s.length; i++) {
-        const id = s[i]._id.toString();
-        const noOfStudents = s[i].noOfStudents;
-
-        const subject = await Subject.findById(id).select('title');
-        const studentsArray = await Registration.find()
-          .populate('student')
-          .where('subjects')
-          .in(id);
-        const students = studentsArray.map(doc => {
-          return {
-            _id: doc.student._id,
-            name: doc.student.name
-          };
-        });
-        if (subject) {
-          subjects.push({
-            _id: id,
-            title: subject.title,
-            noOfStudents: noOfStudents,
-            students: students
-          });
-        }
-      }
-
-      return res.send(subjects);
-    } catch (error) {
-      res.status(500).send(error);
-    }
-  }
 
   public static async getStudentsRegisteredThisMonthAndSubjects(
     req: Request,
