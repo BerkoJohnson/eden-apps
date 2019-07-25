@@ -1,11 +1,4 @@
 import { Document } from 'mongoose';
-import { ITeacher } from './teacher';
-import { IPeriod } from './period';
+import { Subject } from '@eden-apps/subject';
 
-export interface ISubject extends Document {
-  title: string;
-  teacher?: ITeacher;
-  periods?: IPeriod[];
-  createdAt?: Date;
-  updatedAt?: Date;
-}
+export interface ISubject extends Subject, Document {}

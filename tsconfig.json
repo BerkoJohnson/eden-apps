@@ -17,7 +17,13 @@
     "baseUrl": ".",
     "paths": {
       "@eden-apps/user": ["libs/user/src/index.ts"],
-      "@eden-apps/eden-ui": ["libs/eden-ui/src/index.ts"]
+      "@eden-apps/eden-ui": ["libs/eden-ui/src/index.ts"],
+      "@eden-apps/subject": ["libs/subject/src/index.ts"],
+      "@eden-apps/student": ["libs/student/src/index.ts"],
+      "@eden-apps/registration": ["libs/registration/src/index.ts"],
+      "@eden-apps/period": ["libs/period/src/index.ts"],
+      "@eden-apps/teacher": ["libs/teacher/src/index.ts"],
+      "@eden-apps/payment": ["libs/payment/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

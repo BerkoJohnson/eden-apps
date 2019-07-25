@@ -147,7 +147,7 @@ export class PeriodController {
 
       // Get today's day no in JS
       const date = new Date();
-      const dayIndex = date.getDay();
+      const dayIndex = date.getDay();period
       const weekDay = weekDays[dayIndex];
       const requestDayIndex = weekDays.indexOf(today);
 
@@ -181,8 +181,6 @@ export class PeriodController {
           day: period.day,
           time: period.time,
           subject: period.subject,
-          createdAt: period.createdAt,
-          updatedAt: period.updatedAt,
           status: status
         };
       });

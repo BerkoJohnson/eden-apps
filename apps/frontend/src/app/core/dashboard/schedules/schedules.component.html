@@ -1,5 +1,5 @@
 <div class="table">
-  <h5 class="title">Lessons Today {{ thisDay }} - {{ today | date: 'fullDate' }}</h5>
+  <h5 class="title">Lessons for {{ thisDay }}</h5>
   <table>
     <tr>
       <th>Subject</th>
@@ -15,14 +15,24 @@
         <a [routerLink]="['time-table']">
           <strong>View Students</strong>
         </a>
-        <!-- <ul>
-          <li *ngFor="let student of lesson?.students">
-            <a [routerLink]="['students', student._id]">
-              <strong>{{ student?.name }}</strong>
-            </a>
-          </li>
-        </ul> -->
       </td>
     </tr>
   </table>
 </div>
+
+
+<div class="pagination" *ngIf="summary.lessons">
+    <button
+      class="previous"
+      (click)="getLessons(previousDay)"
+    >
+      {{ previousDay }}
+    </button>
+    <button class="current">{{ thisDay }}</button>
+    <button
+      class="next"
+      (click)="getLessons(nextDay)"
+    >
+      {{ nextDay }}
+    </button>
+  </div>

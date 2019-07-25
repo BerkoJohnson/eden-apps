@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ISummary, StudentService } from '../../../services/student.service';
 
 @Component({
@@ -8,6 +8,7 @@ import { ISummary, StudentService } from '../../../services/student.service';
 })
 export class SchedulesComponent implements OnInit {
   summary: ISummary;
+
   daysInWeek = [
     'Sunday',
     'Monday',
@@ -15,11 +16,10 @@ export class SchedulesComponent implements OnInit {
     'Wednesday',
     'Thursday',
     'Friday',
-    'Saturday',
+    'Saturday'
   ];
 
-  constructor(private studentService: StudentService) {
-  }
+  constructor(private studentService: StudentService) {}
 
   get today() {
     return Date.now();
@@ -30,12 +30,23 @@ export class SchedulesComponent implements OnInit {
     return this.daysInWeek[d];
   }
 
+  get nextDay() {
+    const d = new Date().getDay();
+    return this.daysInWeek[d + 1];
+  }
+
+  get previousDay() {
+    const d = new Date().getDay();
+    return this.daysInWeek[d - 1];
+  }
+
   ngOnInit() {
     this.studentService.summary().subscribe(d => {
       this.summary = d;
     });
-
   }
 
-
+  getLessons(day: string) {
+    
+  }
 }

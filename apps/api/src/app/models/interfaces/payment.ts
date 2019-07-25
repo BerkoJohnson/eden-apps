@@ -1,12 +1,4 @@
 import { Document } from 'mongoose';
-import { IStudent } from './student';
-import { ISubject } from './subject';
+import { Payment } from '@eden-apps/payment';
 
-export interface IPayment extends Document {
-  student: IStudent;
-  month: string;
-  subjects: ISubject[];
-  amounts: string[];
-  createdAt?: Date;
-  updatedAt?: Date;
-}
+export interface IPayment extends Payment, Document {}

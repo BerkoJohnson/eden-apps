@@ -28,6 +28,24 @@
     },
     "school": {
       "tags": []
+    },
+    "subject": {
+      "tags": []
+    },
+    "student": {
+      "tags": []
+    },
+    "registration": {
+      "tags": []
+    },
+    "period": {
+      "tags": []
+    },
+    "teacher": {
+      "tags": []
+    },
+    "payment": {
+      "tags": []
     }
   }
 }
