@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ISummary, StudentService } from '../../../services/student.service';
+import { TimeTableService } from '../../../services/time-table.service';
+import { Observable } from 'rxjs';
+import {Lesson} from '@eden-apps/lesson';
 
 @Component({
   selector: 'eden-apps-schedules',
@@ -8,7 +11,7 @@ import { ISummary, StudentService } from '../../../services/student.service';
 })
 export class SchedulesComponent implements OnInit {
   summary: ISummary;
-
+  lessons: Lesson[];
   daysInWeek = [
     'Sunday',
     'Monday',
@@ -19,7 +22,10 @@ export class SchedulesComponent implements OnInit {
     'Saturday'
   ];
 
-  constructor(private studentService: StudentService) {}
+  constructor(
+    private studentService: StudentService,
+    private tt: TimeTableService
+    ) {}
 
   get today() {
     return Date.now();
@@ -44,9 +50,12 @@ export class SchedulesComponent implements OnInit {
     this.studentService.summary().subscribe(d => {
       this.summary = d;
     });
+
+
+    this.tt.getLessons(this.thisDay).subscribe(ls => this.lessons = ls);
   }
 
   getLessons(day: string) {
-    
+    this.tt.getLessons(day).subscribe(ls => this.lessons = ls);
   }
 }

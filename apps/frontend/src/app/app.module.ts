@@ -17,6 +17,7 @@ import { SubjectService } from './services/subject.service';
 import { MessageService } from './services/message.service';
 import { EdenUiModule } from '@eden-apps/eden-ui';
 import { LayoutComponent } from './layout/layout.component';
+import { TimeTableService } from './services/time-table.service';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { LayoutComponent } from './layout/layout.component';
     MessageService,
     UserService,
     TeacherService,
-    SubjectService
+    SubjectService,
+    TimeTableService
   ],
   bootstrap: [AppComponent]
 })

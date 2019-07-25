@@ -46,6 +46,12 @@
     },
     "payment": {
       "tags": []
+    },
+    "token-payload": {
+      "tags": []
+    },
+    "lesson": {
+      "tags": []
     }
   }
 }

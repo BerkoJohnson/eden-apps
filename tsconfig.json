@@ -23,7 +23,9 @@
       "@eden-apps/registration": ["libs/registration/src/index.ts"],
       "@eden-apps/period": ["libs/period/src/index.ts"],
       "@eden-apps/teacher": ["libs/teacher/src/index.ts"],
-      "@eden-apps/payment": ["libs/payment/src/index.ts"]
+      "@eden-apps/payment": ["libs/payment/src/index.ts"],
+      "@eden-apps/token-payload": ["libs/token-payload/src/index.ts"],
+      "@eden-apps/lesson": ["libs/lesson/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

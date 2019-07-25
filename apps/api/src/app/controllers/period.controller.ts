@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import Period from '../models/period';
-import { stat } from 'fs';
 import { IPeriod } from '../models/interfaces/period';
 
 interface IPeriodToday extends IPeriod {
@@ -147,7 +146,7 @@ export class PeriodController {
 
       // Get today's day no in JS
       const date = new Date();
-      const dayIndex = date.getDay();period
+      const dayIndex = date.getDay();
       const weekDay = weekDays[dayIndex];
       const requestDayIndex = weekDays.indexOf(today);
 

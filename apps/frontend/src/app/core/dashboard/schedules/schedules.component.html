@@ -7,7 +7,7 @@
       <th>Status</th>
       <th>Students</th>
     </tr>
-    <tr *ngFor="let lesson of summary?.lessons">
+    <tr *ngFor="let lesson of lessons$ | async">
       <td>{{ lesson?.subject }}</td>
       <td>{{ lesson?.time }}</td>
       <td>{{ lesson?.status }}</td>
@@ -21,7 +21,7 @@
 </div>
 
 
-<div class="pagination" *ngIf="summary.lessons">
+<div class="pagination" *ngIf="lessons$">
     <button
       class="previous"
       (click)="getLessons(previousDay)"
@@ -36,3 +36,5 @@
       {{ nextDay }}
     </button>
   </div>
+
+  {{lessons$  | async | json}}

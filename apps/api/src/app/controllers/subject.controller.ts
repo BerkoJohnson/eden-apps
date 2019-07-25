@@ -82,7 +82,7 @@ export class SubjectController {
       // const ps = await Period.find().where('subject', id)
 
       for (let i = 0; i < periods.length; i++) {
-        let curItem = periods[i];
+        const curItem = periods[i];
         const curPeriod = await Period.findOne()
           .where('subject', id)
           .where('day', curItem.day)
@@ -92,7 +92,7 @@ export class SubjectController {
           const newPeriod = new Period({
             day: curItem.day,
             time: curItem.time,
-            subject: id
+            subject: subject
           });
 
           const savedNewPeriod = await newPeriod.save();
@@ -134,7 +134,7 @@ export class SubjectController {
       const searchTerm: string = req.query.search || '';
 
       // @TODO check if maybe a search string was sent
-      let skipPages = itemsPerPage * (page - 1);
+      const skipPages = itemsPerPage * (page - 1);
       const titleReg = new RegExp(searchTerm, 'gi');
 
       const totalSubjects = await Subject.countDocuments();

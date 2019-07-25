@@ -1,9 +1,6 @@
 import { Application } from 'express';
-import { SubjectController } from '../controllers/subject.controller';
-import { UserController } from '../controllers/user.controller';
 import { checkJWT } from '../middlewares';
 import { PeriodController } from '../controllers/period.controller';
-import { RegistrationController } from '../controllers/registration.controller';
 import { IRoute } from './route.interface';
 
 const URL = '/api/periods/';

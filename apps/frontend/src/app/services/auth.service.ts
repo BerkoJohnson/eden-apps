@@ -3,21 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
-
-export interface IUser {
-  email: string;
-  password?: string;
-  role: string;
-  iat: number;
-  exp: number;
-}
+import { Token } from '@eden-apps/token-payload';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   // tslint:disable-next-line: variable-name
-  _user = new BehaviorSubject<IUser>(this.decodeToken() || null);
+  _user = new BehaviorSubject<Token>(this.decodeToken() || null);
   user$ = this._user.asObservable();
 
   constructor(private http: HttpClient, private router: Router) {}
@@ -30,7 +23,7 @@ export class AuthService {
     window.localStorage.setItem('cp-token', token);
   }
 
-  decodeToken(): IUser {
+  decodeToken(): Token {
     if (!this.token) {
       return null;
     }
@@ -53,7 +46,11 @@ export class AuthService {
 
   login(email: string, password: string) {
     return this.http
-      .post('/api/users/login', { login: {email, password} }, { observe: 'response' })
+      .post(
+        '/api/users/login',
+        { login: { email, password } },
+        { observe: 'response' }
+      )
       .pipe(
         map(res => {
           if (res.headers.get('auth')) {
@@ -65,7 +62,6 @@ export class AuthService {
         })
       );
   }
-
 
   logout() {
     window.localStorage.removeItem('cp-token');

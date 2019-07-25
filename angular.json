@@ -494,6 +494,56 @@
           }
         }
       }
+    },
+    "token-payload": {
+      "root": "libs/token-payload",
+      "sourceRoot": "libs/token-payload/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/token-payload/tsconfig.lib.json",
+              "libs/token-payload/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/token-payload/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/token-payload/jest.config.js",
+            "tsConfig": "libs/token-payload/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "lesson": {
+      "root": "libs/lesson",
+      "sourceRoot": "libs/lesson/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/lesson/tsconfig.lib.json",
+              "libs/lesson/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/lesson/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/lesson/jest.config.js",
+            "tsConfig": "libs/lesson/tsconfig.spec.json"
+          }
+        }
+      }
     }
   },
   "cli": {
