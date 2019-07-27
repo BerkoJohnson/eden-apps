@@ -1,8 +1,11 @@
-import { IRoute } from './route.interface';
 import { Application } from 'express';
+import * as multer from 'multer';
+
+import { IRoute } from './route.interface';
 import { checkJWT } from '../middlewares';
 import { StudentController } from '../controllers/student.controller';
 
+const upload = multer({ dest: '/tmp/' });
 const STUDENT_URL = '/api/students';
 
 export class StudentRoutes implements IRoute {
@@ -16,14 +19,24 @@ export class StudentRoutes implements IRoute {
       .route(`${STUDENT_URL}/summary`)
       .get([checkJWT], StudentController.summary);
 
-      app
+    app
       .route(`${STUDENT_URL}/registered-subjects`)
-      .get([checkJWT], StudentController.getStudentsRegisteredThisMonthAndSubjects);
+      .get(
+        [checkJWT],
+        StudentController.getStudentsRegisteredThisMonthAndSubjects
+      );
 
-      app
+    app
       .route(`${STUDENT_URL}/registered-subjects`)
-      .get([checkJWT], StudentController.getStudentsRegisteredThisMonthAndSubjects);
+      .get(
+        [checkJWT],
+        StudentController.getStudentsRegisteredThisMonthAndSubjects
+      );
 
+    app
+      .route(`${STUDENT_URL}/upload-photo`)
+      .post([checkJWT, upload.single('photo')], StudentController.uploadPhoto);
+      
     app
       .route(`${STUDENT_URL}/:id`)
       .patch([checkJWT], StudentController.updateStudent)

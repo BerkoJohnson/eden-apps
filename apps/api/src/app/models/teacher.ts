@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { ITeacher } from './interfaces/teacher';
+import { ITeacher } from "./interfaces/ITeacher";
 
 const TeacherSchema = new Schema(
   {

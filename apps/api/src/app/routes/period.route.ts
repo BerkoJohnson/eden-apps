@@ -3,12 +3,12 @@ import { checkJWT } from '../middlewares';
 import { PeriodController } from '../controllers/period.controller';
 import { IRoute } from './route.interface';
 
-const URL = '/api/periods/';
+const URL = '/api/periods';
 
 export class PeriodRoutes implements IRoute {
   public routes(app: Application): void {
     // PERIOD ROUTES
-    app.route(`${URL}/`).get([checkJWT], PeriodController.getPeriods);
+    app.route(`${URL}`).get([checkJWT], PeriodController.getPeriods);
 
     app.route(`${URL}/lessons`).get([checkJWT], PeriodController.today);
 

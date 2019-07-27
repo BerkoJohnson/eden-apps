@@ -1,18 +1,30 @@
-<form class="form" [formGroup]="newSubject" (ngSubmit)="saveSubject()">
-<h3>Adding new subject</h3>
+<form class="form form-v1" [formGroup]="newSubject" (ngSubmit)="saveSubject()">
+  <h5 class="form-title">Adding new subject</h5>
+  <div class="body">
     <div class="control">
-        <label for="title" class="label">
-            <span>Title</span>
+      <label for="title" class="label">
+        <span>Title</span>
 
-            <div class="info danger" *ngIf="s.invalid && (s.dirty || s.touched)">
-                <div *ngIf="s.errors?.required">
-                    Title of the subject is required
-                </div>
-            </div>
-        </label>
-        <input type="text" formControlName="title" required id="title"
-               [ngClass]="{'invalid': s.invalid && (s.dirty || s.touched), 'valid': s.valid && (s.dirty || s.touched)}"/>
+        <div class="info danger" *ngIf="s.invalid && (s.dirty || s.touched)">
+          <div *ngIf="s.hasError('required')">
+            Title of the subject is required
+          </div>
+        </div>
+      </label>
+      <input
+        type="text"
+        formControlName="title"
+        required
+        id="title"
+        [ngClass]="{
+          invalid: s.invalid && (s.dirty || s.touched),
+          valid: s.valid && (s.dirty || s.touched)
+        }"
+      />
     </div>
 
-    <button class="e-btn" type="submit" [disabled]="!newSubject.valid">Save Subject</button>
+    <button class="button" type="submit" [disabled]="!newSubject.valid">
+      Save Subject
+    </button>
+  </div>
 </form>

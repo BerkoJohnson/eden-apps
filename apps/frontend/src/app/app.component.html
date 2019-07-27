@@ -4,25 +4,25 @@
   <eden-apps-ui-header>
       <ul class="main-menu">
           <li>
-            <a [routerLink]="['/']" routerLinkActive="active">Dashboard</a>
+            <a [routerLink]="['/']" routerLinkActive="active" (click)="thisRoute = ''" >Dashboard</a>
           </li>
           <li>
-            <a [routerLink]="['/students']" routerLinkActive="active">Students</a>
+            <a [routerLink]="['/students']" routerLinkActive="active" (click)="thisRoute = 'students'" >Students</a>
           </li>
           <li>
-            <a [routerLink]="['/subjects']" routerLinkActive="active">Subjects</a>
+            <a [routerLink]="['/subjects']" routerLinkActive="active" (click)="thisRoute = 'subjects'" >Subjects</a>
           </li>
           <li>
-            <a [routerLink]="['/time-table']" routerLinkActive="active">Time Table</a>
+            <a [routerLink]="['/time-table']" routerLinkActive="active" (click)="thisRoute = 'time-table'" >Time Table</a>
           </li>
           <li>
-            <a [routerLink]="['/teachers']" routerLinkActive="active">Teachers</a>
+            <a [routerLink]="['/teachers']" routerLinkActive="active" (click)="thisRoute = 'teachers'" >Teachers</a>
           </li>
           <li>
-            <a [routerLink]="['/accounts']" routerLinkActive="active">Accounts</a>
+            <a [routerLink]="['/accounts']" routerLinkActive="active" (click)="thisRoute = 'accounts'" >Accounts</a>
           </li>
           <li>
-            <a [routerLink]="['/users']" routerLinkActive="active">Users</a>
+            <a [routerLink]="['/users']" routerLinkActive="active" (click)="thisRoute = 'users'" >Users</a>
           </li>
         </ul>
         <div class="account">
@@ -66,6 +66,11 @@
       </li>
       <li>
         <a [routerLink]="['/students']" routerLinkActive="active">Students</a>
+        <div *ngIf="thisRoute === 'students'">
+          <ul class="submenu">
+            <a [routerLink]="['students', 'new']">New Student</a>
+          </ul>
+        </div>
       </li>
       <li>
         <a [routerLink]="['/subjects']" routerLinkActive="active">Subjects</a>

@@ -12,7 +12,7 @@ body {
 }
 
 $sidebar-width: 15%;
-$primary-color: gold;
+$primary-color: #43dac1;
 $other-color: complement($primary-color);
 $padding: 0.4rem;
 
@@ -251,7 +251,7 @@ ul {
 
   h5 {
     font-weight: 500;
-    color: $other-color;
+    color: $primary-color;
     background-color: #111111;
     text-align: center;
     text-transform: uppercase;
@@ -259,7 +259,7 @@ ul {
     margin: 0;
     line-height: 20px;
     padding: $padding;
-    border-bottom: 1px solid $other-color;
+    border-bottom: 1px solid $primary-color;
   }
 
   button {
@@ -271,7 +271,6 @@ ul {
 form {
   height: inherit;
   background-color: #333;
-  padding: $padding;
 
   .control {
     margin-top: 9px;
@@ -341,7 +340,7 @@ form {
 
 /* Various Views*/
 .content {
-  margin-top: 30px;
+  margin-top: 3px;
   margin-left: $sidebar-width;
   padding: 7px;
 
@@ -370,6 +369,7 @@ form {
   margin: 3px 0;
   transition: all 0.2s;
   text-transform: uppercase;
+  border-left: 3px solid transparent;
 
   .name {
     font-size: 0.8rem;
@@ -380,6 +380,8 @@ form {
   font-weight: bold;
   color: #333;
   background-color: $primary-color;
+  border-left: 3px solid $other-color;
+
 }
 
 .actions {
@@ -402,6 +404,7 @@ form {
 .info-links {
   margin: 10px auto;
   width: 100%;
+  text-align: center;
 }
 
 .blue {
@@ -562,7 +565,7 @@ form {
     border-top: 0;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
-    line-height: 50px;
+    line-height: 35px;
   }
 
   .item {
@@ -575,7 +578,7 @@ form {
       font-size: 0.8rem;
       flex: 1;
       text-transform: uppercase;
-      color: lighten($color: $primary-color, $amount: 10%);
+      color: $other-color;
     }
 
     .title::after {
@@ -598,14 +601,14 @@ form {
 }
 .table {
   background-color: #444;
-
-  &:not(:first-of-type) {
+  
+  &:first-of-type {
     margin-top: 20px;
   }
 
   .title {
     font-weight: 500;
-    color: #32d127;
+    color: $other-color;
     background-color: #111111;
     text-align: center;
     text-transform: uppercase;
@@ -613,17 +616,18 @@ form {
     margin: 0;
     line-height: 20px;
     padding: 0.4rem;
-    border-bottom: 2px solid #32d127;
+    border-bottom: 2px solid $other-color;
   }
 
   table {
     border-collapse: collapse;
     width: 100%;
-    margin-top: 5px;
+    // margin-top: 5px;
 
     tr {
       border-bottom: 1px solid $primary-color;
     }
+
     th,
     td {
       padding: $padding;
@@ -661,6 +665,10 @@ form {
         color: $primary-color;
       }
     }
+
+    ul li {
+      line-height: 15px;
+    }
   }
 }
 
@@ -672,6 +680,95 @@ legend {
     &.remove {
       color: red;
       cursor: pointer;
+    }
+  }
+}
+
+.submenu {
+  margin-left: 16%;
+  margin-top: 2.5%;
+  margin-bottom: -10px;
+  width: 100%;
+  
+  li {
+    display: inline-block;
+  }
+  
+  a {
+    color: #111;
+    text-decoration: none;
+    display: block;
+    padding: $padding;
+
+    &:hover {
+      color: $other-color;
+      text-decoration: underline $other-color;
+    }
+  }
+}
+
+.spread {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.photo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 400px;
+  height: 200px;
+  margin: 0 auto;
+  
+  span {
+    text-align: center;
+    color: white;
+    text-transform: uppercase;
+  }
+  
+  img{
+    width: 200px;
+    height: inherit;
+    border: 3px solid rgba($other-color, 0.5);
+  }
+
+}
+
+
+.form-v1 {
+  
+  .form-title {
+    font-weight: 500;
+    color: $other-color;
+    background-color: #111111;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0;
+    line-height: 20px;
+    padding: 0.4rem;
+    border-bottom: 2px solid $other-color;
+  }
+
+  .body {
+    padding: 20px;
+  }
+
+  label, .other-label {
+    color: white;
+    margin: 3px 0;
+    line-height: 15px;
+  }
+
+  .del-btn {
+    font-size: 0.7rem;
+    color: red;
+    font-weight: bold;
+
+    &:hover {
+      border-bottom:1px solid red;
     }
   }
 }

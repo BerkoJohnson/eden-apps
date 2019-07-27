@@ -131,7 +131,14 @@ export class PeriodController {
       const today: string = req.query.today;
       if (!today) return res.status(400).send();
       const periodsForToday = await Period.find()
-        .populate({ path: 'subject', select: '-periods' })
+        .populate({ 
+          path: 'subject', 
+          select: '-periods',
+          populate: {
+            path: 'teacher',
+            select: '-password'
+          }
+        })
         .where('day', today);
 
       const weekDays = [

@@ -1,4 +1,12 @@
+<ul class="submenu">
+  <li><a [routerLink]="['/users']">Home</a></li>
+  <li><a [routerLink]="['new']">Add New User</a></li>
+</ul>
 <div class="content">
-  <eden-apps-list-of-users></eden-apps-list-of-users>
-  <router-outlet></router-outlet>
+  <div class="view">
+    <eden-apps-list-of-users></eden-apps-list-of-users>
+  </div>
+  <div class="route-view">
+    <router-outlet></router-outlet>
+  </div>
 </div>

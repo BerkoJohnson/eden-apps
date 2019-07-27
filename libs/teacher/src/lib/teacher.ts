@@ -2,6 +2,7 @@
 import {Subject} from '@eden-apps/subject';
 
 export interface Teacher {
+    _id?: string;
     name: string;
     email:string;
     password?: string;

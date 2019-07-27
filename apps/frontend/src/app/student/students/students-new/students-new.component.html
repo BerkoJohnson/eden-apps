@@ -1,10 +1,13 @@
-<form class="form" [formGroup]="newStudentForm" (ngSubmit)="saveStudent()">
+<form class="form form-v1" [formGroup]="newStudentForm" (ngSubmit)="saveStudent()">
+  <h5 class="form-title">Adding New Student</h5>
+
+  <div class="body">
   <div class="control">
     <label for="name" class="label">
       <span>Name</span>
 
       <div class="validation danger" *ngIf="n.invalid && (n.dirty || n.touched)">
-        <div *ngIf="n.errors?.required">
+        <div *ngIf="n.hasError('required')">
           Name is required
         </div>
       </div>
@@ -13,7 +16,7 @@
   </div>
   <div formArrayName="contacts">
     <div class="label">
-      <span>Student Contacts</span>
+      <span class="other-label">Student Contacts</span>
       <div
         class="validation danger"
         *ngIf="
@@ -22,17 +25,17 @@
           (n.touched || n.dirty)
         "
       >
-        <div *ngIf="newStudentForm.errors?.contactsLength">
+        <div *ngIf="newStudentForm.hasError('contactsLength')">
           Provide at least one (1) telephone number.
         </div>
       </div>
     </div>
-    <button type="button" (click)="addStudentContact()">Add Contact</button>
+    <button type="button" class="button" (click)="addStudentContact()">Add New Contact</button>
 
     <div *ngFor="let control of s_c.controls; let i = index">
       <div class="control">
         <label class="label">
-          <span>Contact No: {{ i + 1 }}&nbsp;<a class="link delete" (click)="removeStudentContact(i)">Remove</a></span>
+          <span>Contact No: {{ i + 1 }}&nbsp;<a class="del-btn" (click)="removeStudentContact(i)">Remove</a></span>
 
           <div
             class="validation danger"
@@ -55,7 +58,7 @@
       <label for="guardian" class="label">
         <span>Guardian's Name</span>
         <div class="validation danger" *ngIf="gn.invalid && (gn.dirty || gn.touched)">
-          <div *ngIf="gn.errors?.required">
+          <div *ngIf="gn.hasError('required')">
             Guardian's name is required
           </div>
         </div>
@@ -64,7 +67,7 @@
     </div>
     <div formArrayName="contacts">
       <div class="label">
-        <span>Guardian's Contacts</span>
+        <span class="other-label">Guardian's Contacts</span>
         <div
           class="validation danger"
           *ngIf="
@@ -73,17 +76,17 @@
           (gn.touched || gn.dirty)
         "
         >
-          <div *ngIf="newStudentForm.errors?.guardianContactsLength">
+          <div *ngIf="newStudentForm.hasError('guardianContactsLength')">
             Provide at least one (1) telephone number.
           </div>
         </div>
       </div>
-      <button type="button" (click)="addGuardianContact()">Add Contact</button>
+      <button type="button" class="button" (click)="addGuardianContact()">Add New Contact</button>
 
       <div *ngFor="let control of g_c.controls; let i = index">
         <div class="control">
           <label class="label">
-            <span>Contact No: {{ i + 1 }}&nbsp;<a class="link delete" (click)="removeGuardianContact(i)">Remove</a></span>
+            <span>Contact No: {{ i + 1 }}&nbsp;<a class="del-btn" (click)="removeGuardianContact(i)">Remove</a></span>
 
             <div
               class="validation danger"
@@ -108,7 +111,7 @@
       <span>Date Registered</span>
 
       <div class="validation danger" *ngIf="dg.invalid && (dg.dirty || dg.touched)">
-        <div *ngIf="dg.errors?.required">
+        <div *ngIf="dg.hasError('required')">
           Registration date is required
         </div>
       </div>
@@ -116,5 +119,6 @@
     <input type="date" formControlName="date_registered" required id="date_registered" [ngClass]="{'invalid': dg.invalid && (dg.dirty || dg.touched), 'valid': dg.valid && (dg.dirty || dg.touched)}" />
   </div>
 
-  <button class="e-btn" type="submit" [disabled]="!newStudentForm.valid">Save Student</button>
+  <button class="button" type="submit" [disabled]="!newStudentForm.valid">Save Student</button>
+</div>
 </form>

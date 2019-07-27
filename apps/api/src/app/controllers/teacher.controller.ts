@@ -1,6 +1,6 @@
 import {Request, Response} from 'express';
 import Teacher from '../models/teacher';
-import { ITeacher } from '../models/interfaces/teacher';
+import { ITeacher } from "../models/interfaces/ITeacher";
 import Subject from '../models/subject';
 
 interface IRequestPayload extends ITeacher {
@@ -45,7 +45,7 @@ export class TeacherController {
 
           const t = await Teacher.findOne({}).sort('-createdAt').limit(1);
           // let teacherId = t ? _helpers.generateIDs('Teacher', t.teacherID) : _helpers.generateIDs('Teacher');
-          let teacher = new Teacher();
+          const teacher = new Teacher();
           teacher.name = body.name;
           teacher.email = body.email;
           teacher.password = body.password;
@@ -76,7 +76,7 @@ export class TeacherController {
           const searchTerm: string = req.query.search || '';
 
           // @TODO check if maybe a search string was sent
-          let skipPages = (page - 1) * itemsPerPage;
+          const skipPages = (page - 1) * itemsPerPage;
           const teachersCount = await Teacher.estimatedDocumentCount();
 
           const nameReg = new RegExp(searchTerm, 'gi');
@@ -114,12 +114,12 @@ export class TeacherController {
             res.status(400).send({ message: 'Invalid Request Data!' });
           }
 
-          let teacher = await Teacher.findById(id).select('-password');
+          const teacher = await Teacher.findById(id).select('-password');
           if (!teacher) {
             return res.status(400).send({ message: 'No Teacher Found!' });
           }
           let countUpdated: number = 0;
-          for (let field in updateData) {
+          for (const field in updateData) {
             if (updateData[field]) {
               // let originalField = field;
               if (field === 'name') {
@@ -129,8 +129,8 @@ export class TeacherController {
                 countUpdated += 1;
               }
               if (field === 'contacts') {
-                let newContacts: string[] = updateData[field];
-                let toUpdateContacts = newContacts.filter(
+                const newContacts: string[] = updateData[field];
+                const toUpdateContacts = newContacts.filter(
                   c => teacher && teacher.contacts.includes(c) !== true
                 );
                 await Teacher.findByIdAndUpdate(id, {
@@ -157,7 +157,7 @@ export class TeacherController {
             res.status(400).send({ message: 'Invalid Request Data!' });
           }
 
-          let teacher = await Teacher.findById(id).select('-password');
+          const teacher = await Teacher.findById(id).select('-password');
           if (!teacher) {
             return res.status(400).send({ message: 'No Teacher Found!' });
           }

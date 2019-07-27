@@ -4,7 +4,7 @@ import {Teacher} from '@eden-apps/teacher';
 import {Period} from '@eden-apps/period';
 
 export interface Subject {
-  // _id?: string;
+  _id?: string;
   title: string;
   teacher?: Teacher;
   periods?: Period[];

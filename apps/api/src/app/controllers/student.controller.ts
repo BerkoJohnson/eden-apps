@@ -57,7 +57,7 @@ export class StudentController {
       const searchTerm: string = req.query.search || '';
 
       // @TODO check if maybe a search string was sent
-      let skipPages = (page - 1) * itemsPerPage;
+      const skipPages = (page - 1) * itemsPerPage;
       const studentCount = await Student.countDocuments();
 
       const nameReg = new RegExp(searchTerm, 'gi');
@@ -95,12 +95,12 @@ export class StudentController {
         res.status(400).send({ message: 'Invalid Request Data!' });
       }
 
-      let student = await Student.findById(id).select('name contacts guardian');
+      const student = await Student.findById(id).select('name contacts guardian');
       if (!student) {
         return res.status(400).send({ message: 'No Student Found!' });
       }
-      let countUpdated: number = 0;
-      for (let field in updateData) {
+      let countUpdated = 0;
+      for (const field in updateData) {
         if (updateData[field]) {
           // let originalField = field;
           if (field === 'name') {
@@ -110,8 +110,8 @@ export class StudentController {
             countUpdated += 1;
           }
           if (field === 'contacts') {
-            let newContacts: string[] = updateData[field];
-            let toUpdateContacts = newContacts.filter(
+            const newContacts: string[] = updateData[field];
+            const toUpdateContacts = newContacts.filter(
               c => student && student.contacts.includes(c) !== true
             );
             await Student.findByIdAndUpdate(id, {
@@ -126,8 +126,8 @@ export class StudentController {
             countUpdated += 1;
           }
           if (field === 'guardian' && updateData[field].contacts) {
-            let newContacts: string[] = updateData[field].contacts;
-            let toUpdateContacts = newContacts.filter(
+            const newContacts: string[] = updateData[field].contacts;
+            const toUpdateContacts = newContacts.filter(
               c => student && student.guardian.contacts.includes(c) !== true
             );
             await Student.findByIdAndUpdate(id, {
@@ -152,7 +152,7 @@ export class StudentController {
         return res.status(400).send({ message: 'Invalid Data Sent!' });
       }
 
-      let student = await Student.findById(studentID);
+      const student = await Student.findById(studentID);
       if (!student) {
         return res.status(400).send({ message: 'No Student Found!' });
       }
@@ -283,12 +283,12 @@ export class StudentController {
         lessonObj.status = getLessonStatus(currentLesson.time);
 
         // Get students who are having this lesson
-        const students = await Registration.find()
+        const studentsRegistered = await Registration.find()
           .populate('student')
           .select('student subjects -_id')
           .where('subjects')
           .equals(currentLesson.subject._id);
-        lessonObj.students = students.map(s => {
+        lessonObj.students = studentsRegistered.map(s => {
           return s.student;
         });
         lessonArray.push(lessonObj);
@@ -303,7 +303,6 @@ export class StudentController {
       res.status(500).send(e);
     }
   }
-
 
   public static async getStudentsRegisteredThisMonthAndSubjects(
     req: Request,
@@ -320,7 +319,7 @@ export class StudentController {
         .group({ _id: '$student', subjects: { $sum: 1 } });
 
       const responseData: any[] = [];
-      for (let s of studentsArray) {
+      for (const s of studentsArray) {
         const student = await Student.findById(s._id)
           .select('name')
           .where('isActive', true);
@@ -335,6 +334,13 @@ export class StudentController {
       res.send(responseData);
     } catch (e) {
       res.status(500).send({ e });
+    }
+  }
+
+  public static async uploadPhoto(req: Request, res: Response) {
+    try {
+    } catch (e) {
+      res.status(500).send(e);
     }
   }
 }

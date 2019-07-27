@@ -1,1 +1,12 @@
-<p>time-table works!</p>
+<ul class="submenu">
+  <li><a [routerLink]="['/time-table']">Home</a></li>
+  <li><a [routerLink]="['periods']">Periods</a></li>
+</ul>
+<div class="content">
+  <div class="view">
+      <h4>Welcome to Time Table</h4>
+  </div>
+  <div class="route-view">
+    <router-outlet></router-outlet>
+  </div>
+</div>

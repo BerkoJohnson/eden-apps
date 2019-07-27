@@ -1,40 +1,36 @@
 <div class="table">
-  <h5 class="title">Lessons for {{ thisDay }}</h5>
+  <h5 class="title">Lessons for {{ today }}</h5>
   <table>
     <tr>
+      <th>S/NO</th>
       <th>Subject</th>
       <th>Time</th>
       <th>Status</th>
-      <th>Students</th>
+      <th>Master In Charge</th>
     </tr>
-    <tr *ngFor="let lesson of lessons$ | async">
-      <td>{{ lesson?.subject }}</td>
+    <tr *ngFor="let lesson of lessons; let i = index">
+      <td>{{ i + 1 }}</td>
+      <td>{{ lesson?.subject.title }}</td>
       <td>{{ lesson?.time }}</td>
       <td>{{ lesson?.status }}</td>
-      <td>
-        <a [routerLink]="['time-table']">
-          <strong>View Students</strong>
+      <td *ngIf="lesson.subject.teacher">
+        <a [routerLink]="['teachers', lesson.subject.teacher?._id]">
+          <strong>{{ lesson.subject.teacher?.name }}</strong>
         </a>
+      </td>
+      <td *ngIf="!lesson.subject.teacher">
+        No Teacher Yet
       </td>
     </tr>
   </table>
 </div>
 
-
-<div class="pagination" *ngIf="lessons$">
-    <button
-      class="previous"
-      (click)="getLessons(previousDay)"
-    >
-      {{ previousDay }}
-    </button>
-    <button class="current">{{ thisDay }}</button>
-    <button
-      class="next"
-      (click)="getLessons(nextDay)"
-    >
-      {{ nextDay }}
-    </button>
-  </div>
-
-  {{lessons$  | async | json}}
+<div class="pagination" *ngIf="lessons">
+  <button class="previous" (click)="getLessons(previousDay)">
+    {{ previousDay }}
+  </button>
+  <button class="current">{{ today }}</button>
+  <button class="next" (click)="getLessons(nextDay)">
+    {{ nextDay }}
+  </button>
+</div>
