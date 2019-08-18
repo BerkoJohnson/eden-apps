@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import Period from '../models/period';
 import { IPeriod } from '../models/interfaces/period';
+import Subject from '../models/subject';
 
 interface IPeriodToday extends IPeriod {
   status?: 'Not Started' | 'In Progress' | 'Over';
@@ -9,11 +10,37 @@ interface IPeriodToday extends IPeriod {
 export class PeriodController {
   public static async getPeriods(req: Request, res: Response) {
     try {
-      const periods = await Period.find().populate({
-        path: 'subject',
-        select: '-periods -registrations -createdAt -updatedAt'
-      });
-      res.send(periods);
+      const page = +req.query.page || 1;
+      const itemsPerPage: number = +req.query.limit || 10;
+      const searchTerm: string = req.query.day || '';
+
+      const skipPages = itemsPerPage * (page - 1);
+      const dayRegx = new RegExp(searchTerm, 'gi');
+
+      const totalPeriods = await Period.countDocuments();
+      const itemsFound = await Period.find({})
+        .where('day', dayRegx)
+        .count();
+
+      const periods = await Period.find({})
+        .where('day', dayRegx)
+        .skip(skipPages)
+        .limit(itemsPerPage)
+        .populate({
+          path: 'subject',
+          select: '-periods -registrations -createdAt -updatedAt'
+        });
+
+        const result = {
+          periods: periods,
+          count: totalPeriods,
+          hasNextPage: itemsPerPage * page < itemsFound,
+          hasPrevPage: page > 1,
+          nextPage: page + 1,
+          prevPage: page - 1,
+          currentPage: page
+        };
+        res.send(result);
     } catch (error) {
       res.status(500).send(error);
     }
@@ -22,12 +49,12 @@ export class PeriodController {
   public static async getPeriod(req: Request, res: Response) {
     try {
       const id: string = req.params.id;
-      if (!id) res.status(400).send();
-      const periods = await Period.find().populate({
+      if (!id) return res.status(400).send({message: 'Invalid Request'});
+      const period = await Period.findById(id).populate({
         path: 'subject',
         select: '-periods -registrations -createdAt -updatedAt'
       });
-      res.send(periods);
+      res.send(period);
     } catch (error) {
       res.status(500).send(error);
     }
@@ -118,8 +145,12 @@ export class PeriodController {
   public static async deletePeriod(req: Request, res: Response) {
     try {
       const id: string = req.params.id;
-      if (!id) return res.status(400).send();
-      await Period.findByIdAndRemove(id);
+      if (!id) return res.status(400).send({message: 'Invalid Request'});
+      const period = await Period.findById(id);
+      if(!period) return res.status(400).send({message: 'No such period exists'});
+      if(await Period.findByIdAndRemove(id)) {
+        await Subject.findByIdAndUpdate(period.subject._id, {$pull: {periods: period._id}});
+      }
       res.status(204).send();
     } catch (error) {
       res.status(500).send(error);
@@ -131,8 +162,8 @@ export class PeriodController {
       const today: string = req.query.today;
       if (!today) return res.status(400).send();
       const periodsForToday = await Period.find()
-        .populate({ 
-          path: 'subject', 
+        .populate({
+          path: 'subject',
           select: '-periods',
           populate: {
             path: 'teacher',
@@ -163,7 +194,8 @@ export class PeriodController {
       const periods = periodsForToday.map(period => {
         const time = period.time;
         const timeInMinutes = +time.split(':')[0] * 60 + +time.split(':')[1];
-        let status: 'In Progress' | 'Over' | 'Not Started' | 'Unknown' = 'Unknown';
+        let status: 'In Progress' | 'Over' | 'Not Started' | 'Unknown' =
+          'Unknown';
 
         if (dayIndex < requestDayIndex) {
           status = 'Not Started';

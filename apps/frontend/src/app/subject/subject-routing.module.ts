@@ -9,6 +9,7 @@ import { ViewSubjectComponent } from './subjects/view-subject/view-subject.compo
 import { EditSubjectComponent } from './subjects/edit-subject/edit-subject.component';
 import { RemoveSubjectComponent } from './subjects/remove-subject/remove-subject.component';
 import { AssignTeacherComponent } from './subjects/assign-teacher/assign-teacher.component';
+import { SubjectRegistrationsComponent } from './subjects/subject-registrations/subject-registrations.component';
 
 const ROUTES: Routes = [
   {
@@ -27,7 +28,8 @@ const ROUTES: Routes = [
             component: AddPeriodComponent
           },
           { path: 'assign-teacher', component: AssignTeacherComponent },
-          { path: 'remove-subject', component: RemoveSubjectComponent }
+          { path: 'remove-subject', component: RemoveSubjectComponent },
+          { path: 'subject-registrations', component: SubjectRegistrationsComponent }
         ]
       }
     ]

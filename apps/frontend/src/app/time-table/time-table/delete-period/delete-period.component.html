@@ -1,0 +1,8 @@
+<div class="panel">
+  Removing this period for {{ period?.subject.title }} at {{ period?.time }} on
+  {{ period?.day }}?
+  <span class="actions">
+    <a class="red" (click)="deletePeriod()">Yes, Remove it</a>
+    <a class="blue" routerLink="/time-table/periods">Go back</a>
+  </span>
+</div>

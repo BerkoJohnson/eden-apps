@@ -1,12 +1,12 @@
 import { Document } from 'mongoose';
-import { IStudent } from './student';
-import { ISubject } from './subject';
+import { IAccounts } from './account';
+import { IRegistration } from './registration';
 
 export interface IPayment extends Document {
-  student: IStudent;
+  accounts: IAccounts;
   month: string;
-  subjects: ISubject[];
-  amounts: string[];
+  registrations: IRegistration[];
+  amount: number;
   createdAt?: Date;
   updatedAt?: Date;
 }

@@ -92,7 +92,7 @@ export class StudentsRegisterSubjectsComponent implements OnInit {
     if (!this.registerSubjectForm.valid) {
       this.registerSubjectForm.markAsDirty({onlySelf: true});
     }
-    this.studentService.register({studentID: id, ...this.registerSubjectForm.value}).subscribe(d => {
+    this.studentService.register(id,this.registerSubjectForm.value).subscribe(d => {
       this.registerSubjectForm.reset();
       this.router.navigate(['/students', id], {relativeTo: this.route});
     });

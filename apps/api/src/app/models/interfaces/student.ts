@@ -1,8 +1,9 @@
 import { Document } from 'mongoose';
 import { IRegistration } from './registration';
+import { IAccounts} from './account';
 
 export interface IStudent extends Document {
-    name: string;
+  name: string;
   contacts: string[];
   guardian: {
     name: string;
@@ -10,6 +11,7 @@ export interface IStudent extends Document {
   };
   date_registered?: Date;
   registrations?: IRegistration;
+  accounts: IAccounts;
   isActive?: boolean;
   createdAt?: Date;
   updatedAt?: Date;

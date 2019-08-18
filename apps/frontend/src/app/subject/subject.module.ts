@@ -12,6 +12,7 @@ import { RemoveSubjectComponent } from './subjects/remove-subject/remove-subject
 import { ViewSubjectComponent } from './subjects/view-subject/view-subject.component';
 import { ListOfSubjectsComponent } from './subjects/list-of-subjects/list-of-subjects.component';
 import { SubjectsHomeComponent } from './subjects/subjects-home/subjects-home.component';
+import { SubjectRegistrationsComponent } from './subjects/subject-registrations/subject-registrations.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { SubjectsHomeComponent } from './subjects/subjects-home/subjects-home.co
     NewSubjectComponent,
     RemoveSubjectComponent,
     ViewSubjectComponent,
-    SubjectsHomeComponent
+    SubjectsHomeComponent,
+    SubjectRegistrationsComponent
   ],
   imports: [
     CommonModule,

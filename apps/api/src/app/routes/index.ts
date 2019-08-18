@@ -6,6 +6,7 @@ import { SubjectRoutes } from './subject.route';
 import { PeriodRoutes } from './period.route';
 import { RegistrationRoutes } from './registration.route';
 import { TeacherRoutes } from './teacher.route';
+import { PaymentRoutes } from './payment.route';
 
 class Routes {
   public static initiateRoutes(app: Application) {
@@ -15,6 +16,7 @@ class Routes {
     new PeriodRoutes().routes(app);
     new RegistrationRoutes().routes(app);
     new TeacherRoutes().routes(app);
+    new PaymentRoutes().routes(app);
   }
 }
 export default Routes;

@@ -12,6 +12,12 @@ export class SubjectRoutes implements IRoute {
       .get([checkJWT], SubjectController.getByPage)
       .post([checkJWT], SubjectController.createSubject);
 
+    app.route(`${SUBJ_URL}/list`)
+      .get(SubjectController.getSubjects);
+
+    app.route(`${SUBJ_URL}/subject-regs`)
+      .get(SubjectController.subjectRegs);
+
     app
       .route(`${SUBJ_URL}/:id`)
       .get([checkJWT], SubjectController.getSubject)

@@ -2,7 +2,7 @@
 import {Subject} from '@eden-apps/subject';
 
 export interface Period {
-  // _id: string;
+  _id?: string;
   day: string;
   time: string;
   subject: Subject;

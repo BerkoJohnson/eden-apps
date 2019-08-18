@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { ITeacher } from './teacher.service';
-import { IStudent } from './student.service';
+import { IStudent, IRegistration } from './student.service';
 
 export interface ISubject {
   _id?: string;
@@ -47,7 +47,7 @@ export class SubjectService {
 
   constructor(private http: HttpClient) {
     this.loadSubjects();
-    // this.loadAllSubjects();
+    this.loadAllSubjects();
   }
 
   loadSubjects() {
@@ -55,9 +55,11 @@ export class SubjectService {
   }
 
   loadAllSubjects() {
-    this.getSubjects().subscribe(d => {
-      this._allSubjects.next(d);
-    });
+    this.http
+      .get<ISubject[]>('/api/subjects/list')
+      .subscribe(subjects => {
+        this._allSubjects.next(subjects);
+      });
   }
 
   getSubjects(): Observable<ISubject[]> {
@@ -126,5 +128,9 @@ export class SubjectService {
         return d;
       })
     );
+  }
+
+  getSubjectRegs(id: string, month: string): Observable<IRegistration> {
+    return this.http.get<IRegistration>(`/api/subjects/subject-regs?subject=${id}&month=${month}`);
   }
 }

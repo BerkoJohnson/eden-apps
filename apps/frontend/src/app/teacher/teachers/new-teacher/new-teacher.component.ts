@@ -3,6 +3,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { confirmPassword } from '../../../_helpers/directives/confirm-password';
 import { contactsLength } from '../../../_helpers/directives/contacts-length';
 import { TeacherService } from '../../../services/teacher.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'eden-apps-new-teacher',
@@ -14,7 +15,8 @@ export class NewTeacherComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private teachersService: TeacherService
+    private teachersService: TeacherService,
+    private router: Router
   ) {
     this.newTeacherForm = this.fb.group(
       {
@@ -59,10 +61,11 @@ export class NewTeacherComponent implements OnInit {
       this.newTeacherForm.markAsDirty();
       return;
     }
-    console.log(this.newTeacherForm.value);
     this.teachersService
       .createNewTeacher(this.newTeacherForm.value)
-      .subscribe();
+      .subscribe(t => {
+        this.router.navigate(['teachers', t._id]);
+      });
   }
 
   addControl() {

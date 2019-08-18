@@ -1,20 +1,23 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+// @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+// @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+
+$sidebar-width: 15%;
+$primary-color: #16ec57;
+// $primary-color: #43dac1;
+$other-color: complement($primary-color);
+$padding: 0.4rem;
+
+
 
 html,
 body {
   margin: 0;
   padding: 0;
-  // font-family: 'Roboto';
-  font-family: 'Montserrat', sans-serif;
+  font-family: Roboto;
+  // font-family: 'Montserrat', sans-serif;
   font-size: 0.9rem;
   font-weight: 400;
 }
-
-$sidebar-width: 15%;
-$primary-color: #43dac1;
-$other-color: complement($primary-color);
-$padding: 0.4rem;
 
 * {
   box-sizing: border-box;
@@ -99,6 +102,7 @@ ul {
   top: 0;
   overflow: auto;
   text-align: center;
+  overflow-x: hidden;
 }
 
 .sidebar-menu li a {
@@ -206,19 +210,24 @@ ul {
     color: #444;
     cursor: not-allowed;
   }
+
+  &.active {
+    background-color: green;
+  }
+
 }
 
 .danger {
   color: white;
   background-color: red;
-  border: 1px solid transparent;
+  // border: 1px solid transparent;
 
-  &:not(:disabled):hover {
-    color: red;
-    background-color: white;
-    border-color: red;
-    cursor: pointer;
-  }
+  // &:not(:disabled):hover {
+  //   color: red;
+  //   background-color: white;
+  //   border-color: red;
+  //   cursor: pointer;
+  // }
 }
 
 .success {
@@ -241,8 +250,11 @@ ul {
 .login {
   margin: 178px auto;
   width: 23rem;
-  // height: 11rem;
   border: 1px solid rgba(97, 97, 97, 0.3);
+
+  .body {
+    padding: 20px;
+  }
 
   &:hover {
     box-shadow: 1px 1px 2px 0px #444444a3;
@@ -251,7 +263,7 @@ ul {
 
   h5 {
     font-weight: 500;
-    color: $primary-color;
+    color: $other-color;
     background-color: #111111;
     text-align: center;
     text-transform: uppercase;
@@ -259,7 +271,7 @@ ul {
     margin: 0;
     line-height: 20px;
     padding: $padding;
-    border-bottom: 1px solid $primary-color;
+    border-bottom: 1px solid $other-color;
   }
 
   button {
@@ -338,21 +350,28 @@ form {
   }
 }
 
+.main-content {
+  // margin-left: 15%;
+  overflow-x: hidden;
+
+}
+
 /* Various Views*/
 .content {
   margin-top: 3px;
   margin-left: $sidebar-width;
   padding: 7px;
+  // overflow-y: hidden;
 
   display: flex;
   justify-content: space-between;
   // align-items: center;
-}
 
-.view,
-.route-view {
-  flex: 1;
-  padding: 10px;
+  .view,
+  .route-view {
+    flex: 1;
+    padding: 10px;
+  }
 }
 
 /*Styling list*/
@@ -381,7 +400,6 @@ form {
   color: #333;
   background-color: $primary-color;
   border-left: 3px solid $other-color;
-
 }
 
 .actions {
@@ -396,7 +414,7 @@ form {
     border-radius: 15px;
     border: 1px solid transparent;
     cursor: pointer;
-    width: 60px;
+    min-width: 60px;
     text-align: center;
     text-transform: uppercase;
   }
@@ -407,9 +425,22 @@ form {
   text-align: center;
 }
 
+.red {
+  background-color: red;
+  color: white;
+  border: 1px solid red;
+
+  &:hover {
+    color: red;
+    background-color: white;
+    border: 1px solid red;
+  }
+}
+
 .blue {
   background-color: blue;
   color: white;
+  border: 1px solid blue;
 
   &:hover {
     color: blue;
@@ -420,6 +451,7 @@ form {
 .purple {
   background-color: purple;
   color: white;
+  border: 1px solid purple;
 
   &:hover {
     color: purple;
@@ -431,6 +463,7 @@ form {
 .gray {
   background-color: gray;
   color: white;
+  border: 1px solid gray;
 
   &:hover {
     color: gray;
@@ -442,6 +475,7 @@ form {
 .green {
   background-color: green;
   color: white;
+  border: 1px solid green;
 
   &:hover {
     color: green;
@@ -454,6 +488,7 @@ form {
   $color: yellow;
   background-color: $color;
   color: black;
+  border: 1px solid $color;
 
   &:hover {
     color: black;
@@ -549,7 +584,7 @@ form {
 
   h5 {
     font-weight: 500;
-    color: $primary-color;
+    color: white;
     background-color: #111111;
     text-align: center;
     text-transform: uppercase;
@@ -557,11 +592,11 @@ form {
     margin: 0;
     line-height: 20px;
     padding: $padding;
-    border-bottom: 2px solid $primary-color;
+    border-bottom: 2px solid $other-color;
   }
 
   section {
-    background-color: lighten($color: $primary-color, $amount: 40%);
+    background-color: lighten($color: $primary-color, $amount: 50%);
     border-top: 0;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
@@ -601,14 +636,14 @@ form {
 }
 .table {
   background-color: #444;
-  
+
   &:first-of-type {
     margin-top: 20px;
   }
 
   .title {
     font-weight: 500;
-    color: $other-color;
+    color: white;
     background-color: #111111;
     text-align: center;
     text-transform: uppercase;
@@ -689,11 +724,11 @@ legend {
   margin-top: 2.5%;
   margin-bottom: -10px;
   width: 100%;
-  
+
   li {
     display: inline-block;
   }
-  
+
   a {
     color: #111;
     text-decoration: none;
@@ -711,8 +746,20 @@ legend {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 10px;
+
+  input[type='search'] {
+    flex: 1;
+  }
+  button[type='button'] {
+    width: 100px;
+    margin-left: 20px;
+  }
 }
 
+.question {
+  width: 200px;
+}
 
 .photo {
   display: flex;
@@ -721,24 +768,21 @@ legend {
   width: 400px;
   height: 200px;
   margin: 0 auto;
-  
+
   span {
     text-align: center;
     color: white;
     text-transform: uppercase;
   }
-  
-  img{
+
+  img {
     width: 200px;
     height: inherit;
     border: 3px solid rgba($other-color, 0.5);
   }
-
 }
 
-
 .form-v1 {
-  
   .form-title {
     font-weight: 500;
     color: $other-color;
@@ -756,7 +800,8 @@ legend {
     padding: 20px;
   }
 
-  label, .other-label {
+  label,
+  .other-label {
     color: white;
     margin: 3px 0;
     line-height: 15px;
@@ -768,7 +813,11 @@ legend {
     font-weight: bold;
 
     &:hover {
-      border-bottom:1px solid red;
+      border-bottom: 1px solid red;
     }
   }
+}
+
+.search {
+  border: 1px solid #444;
 }

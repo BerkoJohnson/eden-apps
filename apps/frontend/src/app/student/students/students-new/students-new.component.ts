@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { StudentService } from '../../../services/student.service';
 import { contactsLength, guardianContactsLength } from '../../../_helpers/directives/contacts-length';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'eden-apps-students-new',
@@ -11,7 +12,11 @@ import { contactsLength, guardianContactsLength } from '../../../_helpers/direct
 export class StudentsNewComponent implements OnInit {
   newStudentForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private studentsService: StudentService) {
+  constructor(
+    private fb: FormBuilder,
+    private studentsService: StudentService,
+    private router: Router,
+    private route: ActivatedRoute) {
     this.newStudentForm = this.fb.group({
       name: ['', Validators.required],
       contacts: this.fb.array([]),
@@ -53,9 +58,10 @@ export class StudentsNewComponent implements OnInit {
       this.newStudentForm.markAsDirty();
       return;
     }
-    this.studentsService.createNewStudent(this.newStudentForm.value).subscribe(p => {
-      if (p) {
+    this.studentsService.createNewStudent(this.newStudentForm.value).subscribe(s => {
+      if (s) {
         this.newStudentForm.reset();
+        this.router.navigate(['students', s._id]);
       }
     });
   }

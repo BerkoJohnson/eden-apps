@@ -1,6 +1,6 @@
 import {Request, Response} from 'express';
 import Teacher from '../models/teacher';
-import { ITeacher } from "../models/interfaces/ITeacher";
+import { ITeacher } from "../models/interfaces/teacher";
 import Subject from '../models/subject';
 
 interface IRequestPayload extends ITeacher {
@@ -118,7 +118,7 @@ export class TeacherController {
           if (!teacher) {
             return res.status(400).send({ message: 'No Teacher Found!' });
           }
-          let countUpdated: number = 0;
+          let countUpdated = 0;
           for (const field in updateData) {
             if (updateData[field]) {
               // let originalField = field;

@@ -13,11 +13,9 @@ export class ListOfStudentsComponent implements OnInit {
   studentSearch: FormGroup;
   selected = '';
   students$: Observable<ListPayload>;
+  clearSearch = false;
 
-  constructor(
-    private fb: FormBuilder,
-    private ss: StudentService,
-  ) {
+  constructor(private fb: FormBuilder, private ss: StudentService) {
     this.studentSearch = this.fb.group({
       name: ''
     });
@@ -26,16 +24,24 @@ export class ListOfStudentsComponent implements OnInit {
   ngOnInit() {
     this.students$ = this.ss.students$;
 
-    this.studentSearch.get('name')
-      .valueChanges
-      .pipe(
+    this.studentSearch
+      .get('name')
+      .valueChanges.pipe(
         distinctUntilChanged(),
         debounceTime(300),
         switchMap(v => {
           return this.ss.getByPage(1, 15, v);
         })
       )
-      .subscribe();
+      .subscribe(p => {
+          this.clearSearch = true;
+      });
+  }
+
+  clearField() {
+    this.studentSearch.setValue({
+      name: ''
+    });
   }
 
   gotoPage(page: number) {
@@ -43,4 +49,7 @@ export class ListOfStudentsComponent implements OnInit {
     this.ss.getByPage(page, 15, searchInput || '').subscribe();
   }
 
+  get name() {
+    return this.studentSearch.get('name');
+  }
 }

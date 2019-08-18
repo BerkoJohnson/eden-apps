@@ -1,5 +1,5 @@
 import { Document } from 'mongoose';
-import { ITeacher } from "./ITeacher";
+import { ITeacher } from "./teacher";
 import { IPeriod } from './period';
 
 export interface ISubject extends Document {

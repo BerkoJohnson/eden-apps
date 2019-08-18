@@ -47,8 +47,8 @@ export class TeacherService {
     this.getByPage().subscribe();
   }
 
-  getTeachers(): Observable<ITeacher[]> {
-    return this.http.get<ITeacher[]>('/api/teachers');
+  getTeachers(): Observable<ListPayload> {
+    return this.http.get<ListPayload>('/api/teachers');
   }
 
   getByPage(page = 1, limit = 5, search = ''): Observable<ListPayload> {
@@ -62,12 +62,13 @@ export class TeacherService {
       );
   }
 
-  createNewTeacher(FormData: ITeacher) {
+  createNewTeacher(FormData: ITeacher): Observable<ITeacher> {
     return this.http
-      .post('/api/teachers', FormData, {observe: 'response'})
+      .post<ITeacher>('/api/teachers', {teacher: FormData})
       .pipe(
-        tap(_ => {
+        map(_ => {
           this.loadTeachers();
+          return _;
         })
       );
   }
@@ -81,7 +82,7 @@ export class TeacherService {
     );
   }
 
-  addSubject(subject: ISubject, id: string) {
-    return this.http.put('/api/teachers/' + id + '/add-subject', subject);
+  assignTeacher(subject: ISubject, id: string) {
+    return this.http.put('/api/teachers/assign-subject?id=' + id, subject);
   }
 }

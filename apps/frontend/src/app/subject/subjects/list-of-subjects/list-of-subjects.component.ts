@@ -54,6 +54,11 @@ export class ListOfSubjectsComponent implements OnInit {
     return this.f.title.value;
   }
 
+  clearField() {
+    this.searchForm.setValue({
+      title: ''
+    });
+  }
 
   onHover(id) {
     this.selectedID = id;

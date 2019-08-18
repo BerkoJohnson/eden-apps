@@ -154,13 +154,14 @@ export class StudentService {
       );
   }
 
-  createNewStudent(formData: IStudent) {
+  createNewStudent(formData: IStudent): Observable<IStudent> {
     return this.http
-      .post('/api/students', formData, { observe: 'response' })
+      .post<IStudent>('/api/students', {student: formData})
       .pipe(
-        tap(_ => {
+        map(_ => {
           this.loadStudents();
           this.loadSummary();
+          return _;
         })
       );
   }
@@ -180,8 +181,8 @@ export class StudentService {
       }));
   }
 
-  register(formData: IRegistration): Observable<IStudent> {
-    return this.http.post<IStudent>('/api/students/register-subjects', formData).pipe(
+  register(id: string, formData: IRegistration): Observable<IStudent> {
+    return this.http.put<IStudent>(`/api/students/${id}/register`, formData).pipe(
       map(d => {
         if (d) {
           // this._student.next(d);

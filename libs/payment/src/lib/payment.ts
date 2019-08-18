@@ -1,12 +1,13 @@
-import {Subject} from '@eden-apps/subject';
 // tslint:disable-next-line: nx-enforce-module-boundaries
-import {Student} from '@eden-apps/student';
+import { Student } from '@eden-apps/student';
+// tslint:disable-next-line: nx-enforce-module-boundaries
+import { Registration } from '@eden-apps/registration';
 
 export interface Payment {
-  // _id: string;
-  student: Student;
+  _id?: string;
+  student: string | Student;
   month: string;
-  subjects: Subject[];
+  registrations?: string[] | Registration[];
   amounts: string[];
   createdAt?: Date;
   updatedAt?: Date;

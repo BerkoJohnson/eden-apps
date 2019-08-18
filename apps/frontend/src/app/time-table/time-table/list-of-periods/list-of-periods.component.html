@@ -1,0 +1,49 @@
+<form class="form form-v1" [formGroup]="searchPeriod">
+  <div class="control">
+    <select name="day" id="day" formControlName="day" class="search">
+      <option value="">Select a day</option>
+      <option [value]="d" *ngFor="let d of daysInWeek">{{d}}</option>
+    </select>
+  </div>
+</form>
+
+<ul class="list" *ngIf="periods$ | async as list; else noPeriodFound">
+    <li
+      *ngFor="let period of list.periods; let i = index"
+      class="list-item"
+      (mouseover)="selectedID = period._id"
+      [ngClass]="{ 'selectedBg': selectedID === period._id }"
+    >
+      <span class="name">{{ period?.day }} @ {{ period.time }} &mdash; {{ period.subject.title }}</span>
+      <span class="actions" *ngIf="selectedID === period._id">
+        <a class="purple" [routerLink]="[period._id]">View</a>
+        <a
+          class="blue"
+          [routerLink]="[period._id, 'update']"
+          >Update</a
+        >
+        <a class="red" [routerLink]="[period._id, 'delete']">Remove</a>
+      </span>
+    </li>
+  </ul>
+  <ng-template #noPeriodFound>
+    <h5>No Period Found</h5>
+  </ng-template>
+  
+  <div class="pagination" *ngIf="periods$ | async as list">
+    <button
+      class="previous"
+      (click)="gotoPage(list.prevPage)"
+      [disabled]="!list?.hasPrevPage"
+    >
+      Previous
+    </button>
+    <button class="current">{{ list?.currentPage }}</button>
+    <button
+      class="next"
+      (click)="gotoPage(list.nextPage)"
+      [disabled]="!list?.hasNextPage"
+    >
+      Next
+    </button>
+  </div>

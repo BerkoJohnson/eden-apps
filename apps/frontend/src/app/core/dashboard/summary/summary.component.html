@@ -9,7 +9,7 @@
     </tr>
     <tr *ngFor="let subject of subjectRegistration; let i = index">
       <td>{{ i + 1 }}</td>
-      <td>{{ subject.title }}</td>
+      <td><a [routerLink]="['subjects', subject._id, 'subject-registrations']">{{ subject.title }}</a></td>
       <td>{{ subject.noOfStudents }}</td>
       <!-- <td>
         <a

@@ -1,12 +1,14 @@
 <form [formGroup]="studentSearch">
-  <div class="control">
+  <div class="control spread">
     <input
       type="search"
       name="name"
       id="name"
+      class="search"
       formControlName="name"
-      placeholder="Enter a student's name..."
+      placeholder="Enter a student's name to search"
     />
+    <button type="button" class="button" (click)="clearField()">Clear</button>
   </div>
 </form>
 <hr class="hr" />

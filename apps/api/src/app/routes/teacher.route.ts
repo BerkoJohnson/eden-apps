@@ -13,8 +13,8 @@ export class TeacherRoutes implements IRoute {
       .post([checkJWT], TeacherController.createTeacher);
 
       app
-      .route(`${TEACHER_URL}/reassign`)
-      .get([checkJWT], TeacherController.resignSubject);
+      .route(`${TEACHER_URL}/assign-subject`)
+      .put([checkJWT], TeacherController.resignSubject);
 
     app
       .route(`${TEACHER_URL}/:id`)

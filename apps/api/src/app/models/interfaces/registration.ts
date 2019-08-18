@@ -1,5 +1,4 @@
 import { Document } from 'mongoose';
-import { Registration } from '@eden-apps/registration';
 import { IStudent } from './student';
 import { ISubject } from './subject';
 import { IPayment } from './payment';

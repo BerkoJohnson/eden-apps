@@ -2,18 +2,19 @@ import { Request, Response } from 'express';
 import Subject from '../models/subject';
 import Period from '../models/period';
 import { IPeriod } from '../models/interfaces/period';
+import Registration from '../models/registration';
 
 export class SubjectController {
   public static async getSubject(req: Request, res: Response) {
     try {
       const id: string = req.params.id;
       const subject = await Subject.findById(id)
-       .populate(
-         {
-           path: 'teacher periods',
-           select: '-password -subjects'
-         }
-       )
+        .populate(
+          {
+            path: 'teacher periods',
+            select: '-password -subjects'
+          }
+        )
       res.send(subject);
     } catch (e) {
       res.status(500).send(e);
@@ -157,6 +158,22 @@ export class SubjectController {
         currentPage: page
       };
       res.send(result);
+    } catch (e) {
+      res.status(500).send(e);
+    }
+  }
+
+  public static async subjectRegs(req: Request, res: Response) {
+    try {
+      const month: string = req.query.month;
+      const subject: string = req.params.subject;
+      const subjectRegForThisMonth = await Registration.
+        find()
+        .where('subjects', subject)
+        .where('month', month);
+
+      console.log(subjectRegForThisMonth);
+      res.send('asdqwerty.');
     } catch (e) {
       res.status(500).send(e);
     }

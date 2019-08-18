@@ -35,8 +35,8 @@ export class StudentController {
         date_registered: body.date_registered
       });
 
-      await student.save();
-      res.status(204).send();
+      const saved = await student.save();
+      res.status(201).send(saved);
     } catch (error) {
       res.status(500).send(error);
     }

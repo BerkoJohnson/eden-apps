@@ -47,9 +47,11 @@ export class SchedulesComponent implements OnInit {
 
     const d = new Date().getDay();
     this.today = this.daysInWeek[d];
+    const dayIndex = this.daysInWeek.indexOf(this.today);
 
-    this.nextDay = this.daysInWeek[d + 1];
-    this.previousDay = this.daysInWeek[d - 1];
+    this.nextDay = dayIndex === 6 ? 'Sunday' : this.daysInWeek[dayIndex + 1];
+    this.previousDay =
+      dayIndex === 0 ? 'Saturday' : this.daysInWeek[dayIndex - 1];
 
     this.tt.getLessons(this.today).subscribe(ls => (this.lessons = ls));
   }
