@@ -2,7 +2,7 @@
 // @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
 
 $sidebar-width: 15%;
-$primary-color: #16ec57;
+$primary-color: #cd0;
 // $primary-color: #43dac1;
 $other-color: complement($primary-color);
 $padding: 0.4rem;
@@ -785,7 +785,7 @@ legend {
 .form-v1 {
   .form-title {
     font-weight: 500;
-    color: $other-color;
+    color: white;
     background-color: #111111;
     text-align: center;
     text-transform: uppercase;

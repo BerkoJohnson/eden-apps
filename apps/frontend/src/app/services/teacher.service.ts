@@ -83,6 +83,8 @@ export class TeacherService {
   }
 
   assignTeacher(subject: ISubject, id: string) {
-    return this.http.put('/api/teachers/assign-subject?id=' + id, subject);
+    return this.http.put('/api/teachers/assign-subject?id=' + id, {
+      subject: subject._id
+    });
   }
 }

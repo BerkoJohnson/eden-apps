@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { ListPayload, TeacherService } from '../../../services/teacher.service';
 import { ISubject, SubjectService } from '../../../services/subject.service';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 
 @Component({
@@ -13,14 +13,15 @@ import { switchMap } from 'rxjs/operators';
 })
 export class AssignTeacherComponent implements OnInit {
   assignForm: FormGroup;
-  teachers:  ListPayload;
+  teachers: ListPayload;
   subject: ISubject;
 
   constructor(
     private fb: FormBuilder,
     private teachersService: TeacherService,
     private subjectService: SubjectService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     this.assignForm = this.fb.group({
       teacherID: ['', Validators.required]
@@ -45,12 +46,12 @@ export class AssignTeacherComponent implements OnInit {
     ).subscribe(teachers => this.teachers = teachers);
   }
 
-  submitAssignment(id: string) {
+  submitAssignment() {
     if (!this.assignForm.valid) {
       return this.assignForm.markAsDirty();
     }
 
-    // console.log(this.subject._id, this.assignForm.value);
-    this.subjectService.assignTeacher(id, this.assignForm.get('teacherID')).subscribe();
+    this.teachersService.assignTeacher(this.subject, this.tID.value)
+      .subscribe(d => this.router.navigateByUrl(`/subjects/${this.subject._id}`));
   }
 }

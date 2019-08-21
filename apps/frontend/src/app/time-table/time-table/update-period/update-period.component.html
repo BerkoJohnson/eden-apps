@@ -1,3 +1,58 @@
-<p>
-  update-period works!
-</p>
+<form class="form form-v1" [formGroup]="updatePeriodForm" (ngSubmit)="save()">
+  <h5 class="form-title">Updating Period</h5>
+  <div class="body">
+    <h4 style="color: white;margin:0;">Subject: {{ period?.subject.title }}</h4>
+    <div class="control">
+      <label for="day" class="label">
+        <span>Day</span>
+
+        <div
+          class="info danger"
+          *ngIf="day.invalid && (day.dirty || day.touched)"
+        >
+          <div *ngIf="day.hasError('required')">
+            Day is required
+          </div>
+        </div>
+      </label>
+      <input
+        type="text"
+        formControlName="day"
+        required
+        id="day"
+        [ngClass]="{
+          invalid: day.invalid && (day.dirty || day.touched),
+          valid: day.valid && (day.dirty || day.touched)
+        }"
+      />
+    </div>
+    <div class="control">
+      <label for="time" class="label">
+        <span>Time</span>
+
+        <div
+          class="info danger"
+          *ngIf="time.invalid && (time.dirty || time.touched)"
+        >
+          <div *ngIf="time.hasError('required')">
+            Time is required
+          </div>
+        </div>
+      </label>
+      <input
+        type="time"
+        formControlName="time"
+        required
+        id="time"
+        [ngClass]="{
+          invalid: time.invalid && (time.dirty || time.touched),
+          valid: time.valid && (time.dirty || time.touched)
+        }"
+      />
+    </div>
+
+    <button class="button" type="submit" [disabled]="updatePeriodForm.invalid">
+      Update Period
+    </button>
+  </div>
+</form>

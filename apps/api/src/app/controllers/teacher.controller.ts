@@ -150,11 +150,11 @@ export class TeacherController {
 
       public static async resignSubject(req: Request, res: Response) {
         try {
-          const id: string = req.params.id;
-          const subjectID: any = req.body.subject;
+          const id: string = req.query.id;
+          const subjectID: string = req.body.subject;
 
           if (!id || !subjectID) {
-            res.status(400).send({ message: 'Invalid Request Data!' });
+            return res.status(400).send({ message: 'Invalid Request Data!' });
           }
 
           const teacher = await Teacher.findById(id).select('-password');
