@@ -51,12 +51,13 @@ export class UserService {
   }
 
 
-  createUser(FormData: User) {
+  createUser(FormData: User): Observable<User> {
     return this.http
-      .post('/api/users', FormData, { observe: 'response' })
+      .post<User>('/api/users', {user: FormData})
       .pipe(
-        tap(_ => {
+        map(_ => {
           this.loadUsers();
+          return _;
         })
       );
   }
