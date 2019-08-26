@@ -1,23 +1,24 @@
-// @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
-// @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat|Roboto&display=swap');
 
 $sidebar-width: 15%;
-$primary-color: #cd0;
+$primary-color: #e0a014;
 // $primary-color: #43dac1;
 $other-color: complement($primary-color);
 $padding: 0.4rem;
-
 
 
 html,
 body {
   margin: 0;
   padding: 0;
-  font-family: Roboto;
+  font-family: 'Roboto', sans-serif;
   // font-family: 'Montserrat', sans-serif;
-  font-size: 0.9rem;
   font-weight: 400;
+  font-size: 0.85rem;
 }
+
+
 
 * {
   box-sizing: border-box;
@@ -396,14 +397,14 @@ form {
 }
 
 .selectedBg {
-  font-weight: bold;
-  color: #333;
-  background-color: $primary-color;
-  border-left: 3px solid $other-color;
+  // font-weight: bold;
+  color: white;
+  background-color:$other-color;
+  border-left: 3px solid $primary-color;
 }
 
 .actions {
-  font-weight: 300;
+  // font-weight: 300;
   font-size: 0.6rem;
 
   a {
@@ -415,6 +416,7 @@ form {
     border: 1px solid transparent;
     cursor: pointer;
     min-width: 60px;
+    letter-spacing: 2px;
     text-align: center;
     text-transform: uppercase;
   }

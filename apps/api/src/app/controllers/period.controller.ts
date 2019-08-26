@@ -17,10 +17,10 @@ export class PeriodController {
       const skipPages = itemsPerPage * (page - 1);
       const dayRegx = new RegExp(searchTerm, 'gi');
 
-      const totalPeriods = await Period.countDocuments();
+      const totalPeriods = await Period.estimatedDocumentCount();
       const itemsFound = await Period.find({})
         .where('day', dayRegx)
-        .count();
+        .estimatedDocumentCount();
 
       const periods = await Period.find({})
         .where('day', dayRegx)

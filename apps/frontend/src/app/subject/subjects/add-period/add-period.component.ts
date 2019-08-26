@@ -5,6 +5,8 @@ import { switchMap } from 'rxjs/operators';
 import { periodsLength } from '../../../_helpers/directives/periods-length';
 import { IPeriod, ISubject, SubjectService } from '../../../services/subject.service';
 import { AuthService } from '../../../services/auth.service';
+import { Subject } from '@eden-apps/subject';
+import { TimeTableService } from '../../../services/time-table.service';
 
 
 @Component({
@@ -15,7 +17,7 @@ import { AuthService } from '../../../services/auth.service';
 export class AddPeriodComponent implements OnInit {
   addPeriodForm: FormGroup;
   periodsDB: IPeriod[];
-  subject: ISubject;
+  subject: Subject;
   daysInWeek = [
     'Monday',
     'Tuesday',
@@ -31,7 +33,8 @@ export class AddPeriodComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    public auth: AuthService
+    public auth: AuthService,
+    private tt: TimeTableService
   ) {
     this.addPeriodForm = this.fb.group(
       {
@@ -72,6 +75,7 @@ export class AddPeriodComponent implements OnInit {
       .subscribe(p => {
         if (p) {
           this.addPeriodForm.reset();
+          this.tt.getPeriods().subscribe();
           this.router.navigate(['/subjects', this.subject._id], {
             relativeTo: this.route
           });

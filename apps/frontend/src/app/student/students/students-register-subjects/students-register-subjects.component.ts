@@ -6,6 +6,7 @@ import { FormGroup, FormBuilder, FormArray, Validators, AbstractControl } from '
 import { ISubject, SubjectService } from '../../../services/subject.service';
 import { IStudent, StudentService } from '../../../services/student.service';
 import { subjectsLength } from '../../../_helpers/directives/contacts-length';
+import { Subject } from '@eden-apps/subject';
 
 
 @Component({
@@ -15,7 +16,7 @@ import { subjectsLength } from '../../../_helpers/directives/contacts-length';
 })
 export class StudentsRegisterSubjectsComponent implements OnInit {
   registerSubjectForm: FormGroup;
-  subjectsList: ISubject[];
+  subjectsList: Subject[];
   selectedSubjects: string[] = [];
   student: IStudent;
   months = [

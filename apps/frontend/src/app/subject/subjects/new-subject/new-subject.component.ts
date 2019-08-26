@@ -8,7 +8,6 @@ import { SubjectService } from '../../../services/subject.service';
   styleUrls: ['./new-subject.component.scss']
 })
 export class NewSubjectComponent implements OnInit {
-
   newSubject: FormGroup;
   constructor(
     private fb: FormBuilder,
@@ -27,7 +26,13 @@ export class NewSubjectComponent implements OnInit {
       return;
     }
     // console.log(this.newSubject.value);
-    this.subjectsSubject.createNewSubject(this.newSubject.value).subscribe();
+    this.subjectsSubject.createNewSubject(this.newSubject.value).subscribe(
+      s => {
+        this.newSubject.patchValue({
+          title: ''
+        });
+      }
+    );
   }
 
   get s() {

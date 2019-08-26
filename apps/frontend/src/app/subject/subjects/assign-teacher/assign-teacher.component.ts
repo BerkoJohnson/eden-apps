@@ -5,6 +5,7 @@ import { ListPayload, TeacherService } from '../../../services/teacher.service';
 import { ISubject, SubjectService } from '../../../services/subject.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
+import { Subject } from '@eden-apps/subject';
 
 @Component({
   selector: 'eden-apps-assign-teacher',
@@ -14,7 +15,7 @@ import { switchMap } from 'rxjs/operators';
 export class AssignTeacherComponent implements OnInit {
   assignForm: FormGroup;
   teachers: ListPayload;
-  subject: ISubject;
+  subject: Subject;
 
   constructor(
     private fb: FormBuilder,
