@@ -11,6 +11,7 @@ export class PeriodRoutes implements IRoute {
     app.route(`${URL}`).get([checkJWT], PeriodController.getPeriods);
 
     app.route(`${URL}/lessons`).get([checkJWT], PeriodController.today);
+    app.route(`${URL}/time-table`).get([checkJWT], PeriodController.time_table);
 
     app
       .route(`${URL}/:id`)

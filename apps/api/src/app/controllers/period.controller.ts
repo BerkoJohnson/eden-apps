@@ -31,16 +31,16 @@ export class PeriodController {
           select: '-periods -registrations -createdAt -updatedAt'
         });
 
-        const result = {
-          periods: periods,
-          count: totalPeriods,
-          hasNextPage: itemsPerPage * page < itemsFound,
-          hasPrevPage: page > 1,
-          nextPage: page + 1,
-          prevPage: page - 1,
-          currentPage: page
-        };
-        res.send(result);
+      const result = {
+        periods: periods,
+        count: totalPeriods,
+        hasNextPage: itemsPerPage * page < itemsFound,
+        hasPrevPage: page > 1,
+        nextPage: page + 1,
+        prevPage: page - 1,
+        currentPage: page
+      };
+      res.send(result);
     } catch (error) {
       res.status(500).send(error);
     }
@@ -49,7 +49,7 @@ export class PeriodController {
   public static async getPeriod(req: Request, res: Response) {
     try {
       const id: string = req.params.id;
-      if (!id) return res.status(400).send({message: 'Invalid Request'});
+      if (!id) return res.status(400).send({ message: 'Invalid Request' });
       const period = await Period.findById(id).populate({
         path: 'subject',
         select: '-periods -registrations -createdAt -updatedAt'
@@ -145,11 +145,14 @@ export class PeriodController {
   public static async deletePeriod(req: Request, res: Response) {
     try {
       const id: string = req.params.id;
-      if (!id) return res.status(400).send({message: 'Invalid Request'});
+      if (!id) return res.status(400).send({ message: 'Invalid Request' });
       const period = await Period.findById(id);
-      if(!period) return res.status(400).send({message: 'No such period exists'});
-      if(await Period.findByIdAndRemove(id)) {
-        await Subject.findByIdAndUpdate(period.subject._id, {$pull: {periods: period._id}});
+      if (!period)
+        return res.status(400).send({ message: 'No such period exists' });
+      if (await Period.findByIdAndRemove(id)) {
+        await Subject.findByIdAndUpdate(period.subject._id, {
+          $pull: { periods: period._id }
+        });
       }
       res.status(204).send();
     } catch (error) {
@@ -225,6 +228,36 @@ export class PeriodController {
       res.status(200).send(periods);
     } catch (error) {
       res.status(500).send(error);
+    }
+  }
+
+  public static async time_table(req: Request, res: Response) {
+    try {
+      const days = [
+        'Sunday',
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday'
+      ];
+
+      const tableObject = {};
+
+      for (let i = 0; i < days.length; i++) {
+        const day = days[i];
+        const periods = await Period.find().populate({
+          path: 'subject',
+          select: '-p'
+        }).where('day').equals(day);
+        tableObject[day.toLowerCase()] = periods;
+        // console.log(tableObject);
+      }
+
+      res.send(tableObject);
+    } catch (e) {
+      res.status(500).send(e);
     }
   }
 }

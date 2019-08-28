@@ -4,7 +4,105 @@
 </ul>
 <div class="content">
   <div class="view">
-      <h4>Time Table For the Week</h4>
+    <div class="table">
+      <h5 class="title">Time Table For the Week</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Days</th>
+            <th *ngFor="let time of times">{{ time }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let day of days">
+            <ng-container *ngIf="day === 'Monday'">
+              <th>{{ day }}</th>
+              <td *ngFor="let periods of schedules?.monday">
+                <ng-container *ngIf="periods.time === '15:00'">
+                  {{ periods?.subject.title }}
+                </ng-container>
+                <ng-container *ngIf="periods.time === '16:30'">
+                  {{ periods?.subject.title }}
+                </ng-container>
+                <!-- {{ periods | json }} -->
+              </td>
+            </ng-container>
+            <ng-container *ngIf="day === 'Tuesday'">
+              <th>{{ day }}</th>
+              <td *ngFor="let periods of schedules?.tuesday">
+                <ng-container *ngIf="periods.time === '15:00'">
+                  {{ periods?.subject.title }} <br>
+                </ng-container>
+                <ng-container *ngIf="periods.time === '16:30'">
+                  {{ periods?.subject.title }} <br>
+                </ng-container>
+                <!-- {{ periods | json }} -->
+              </td>
+            </ng-container>
+            <ng-container *ngIf="day === 'Wednesday'">
+              <th>{{ day }}</th>
+              <td *ngFor="let periods of schedules?.wednesday">
+                <ng-container *ngIf="periods.time === '15:00'">
+                  {{ periods?.subject.title }} <br>
+                </ng-container>
+                <ng-container *ngIf="periods.time === '16:30'">
+                  {{ periods?.subject.title }} <br>
+                </ng-container>
+                <!-- {{ periods | json }} -->
+              </td>
+            </ng-container>
+            <ng-container *ngIf="day === 'Thursday'">
+              <th>{{ day }}</th>
+              <td *ngFor="let periods of schedules?.thursday">
+                <ng-container *ngIf="periods.time === '15:00'">
+                  {{ periods?.subject.title }} <br>
+                </ng-container>
+                <ng-container *ngIf="periods.time === '16:30'">
+                  {{ periods?.subject.title }} <br>
+                </ng-container>
+                <!-- {{ periods | json }} -->
+              </td>
+            </ng-container>
+            <ng-container *ngIf="day === 'Friday'">
+              <th>{{ day }}</th>
+              <td *ngFor="let periods of schedules?.friday">
+                <ng-container *ngIf="periods.time === '15:00'">
+                  {{ periods?.subject.title }} <br>
+                </ng-container>
+                <ng-container *ngIf="periods.time === '16:30'">
+                  {{ periods?.subject.title }} <br>
+                </ng-container>
+                <!-- {{ periods | json }} -->
+              </td>
+            </ng-container>
+            <ng-container *ngIf="day === 'Saturday'">
+              <th>{{ day }}</th>
+              <td *ngFor="let periods of schedules?.saturday">
+                <ng-container *ngIf="periods.time === '15:00'">
+                  {{ periods?.subject.title }} <br>
+                </ng-container>
+                <ng-container *ngIf="periods.time === '16:30'">
+                  {{ periods?.subject.title }} <br>
+                </ng-container>
+                <!-- {{ periods | json }} -->
+              </td>
+            </ng-container>
+            <ng-container *ngIf="day === 'Sunday'">
+              <th>{{ day }}</th>
+              <td *ngFor="let periods of schedules?.sunday">
+                <ng-container *ngIf="periods.time === '15:00'">
+                  {{ periods?.subject.title }} <br>
+                </ng-container>
+                <ng-container *ngIf="periods.time === '16:30'">
+                  {{ periods?.subject.title }} <br>
+                </ng-container>
+                <!-- {{ periods | json }} -->
+              </td>
+            </ng-container>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
   <div class="route-view">
     <router-outlet></router-outlet>

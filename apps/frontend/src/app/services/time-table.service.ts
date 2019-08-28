@@ -6,7 +6,15 @@ import { map } from 'rxjs/operators';
 import { Period } from '@eden-apps/period';
 
 const URL = '/api/periods';
-
+export interface Schedules {
+  monday?: Period[];
+  tuesday?: Period[];
+  wednesday?: Period[];
+  thursday?: Period[];
+  friday?: Period[];
+  saturday?: Period[];
+  sunday?: Period[];
+}
 export interface PeriodsList {
   subjects: Period[];
   count: number;
@@ -69,5 +77,9 @@ export class TimeTableService {
         }
       })
     );
+  }
+
+  time_schedules(): Observable<Schedules> {
+    return this.http.get<Schedules>(`${URL}/time-table`);
   }
 }

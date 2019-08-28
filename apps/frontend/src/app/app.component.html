@@ -1,52 +1,55 @@
-<!-- <eden-apps-login *ngIf="!auth.verifyToken()"></eden-apps-login>
-<eden-apps-layout *ngIf="auth.verifyToken()"></eden-apps-layout> -->
 <eden-apps-ui-layout>
   <eden-apps-ui-header>
-      <ul class="main-menu">
-          <li>
-            <a [routerLink]="['/']" routerLinkActive="active" (click)="thisRoute = ''" >Dashboard</a>
-          </li>
-          <li>
-            <a [routerLink]="['/students']" routerLinkActive="active" (click)="thisRoute = 'students'" >Students</a>
-          </li>
-          <li>
-            <a [routerLink]="['/subjects']" routerLinkActive="active" (click)="thisRoute = 'subjects'" >Subjects</a>
-          </li>
-          <li>
-            <a [routerLink]="['/time-table']" routerLinkActive="active" (click)="thisRoute = 'time-table'" >Time Table</a>
-          </li>
-          <li>
-            <a [routerLink]="['/teachers']" routerLinkActive="active" (click)="thisRoute = 'teachers'" >Teachers</a>
-          </li>
-          <li>
-            <a [routerLink]="['/accounts']" routerLinkActive="active" (click)="thisRoute = 'accounts'" >Accounts</a>
-          </li>
-          <li>
-            <a [routerLink]="['/users']" routerLinkActive="active" (click)="thisRoute = 'users'" >Users</a>
-          </li>
-        </ul>
-        <div class="account">
-          <ul>
-            <li>
-              <a class="user" *ngIf="auth.verifyToken()">{{
-                auth.decodeToken()?.email
-              }}</a>
-            </li>
-            <li>
-              <a (click)="auth.logout()" class="logout-btn" *ngIf="auth.verifyToken()"
-                >Logout</a
-              >
-            </li>
-            <li>
-              <a
-                class="login-btn"
-                [routerLink]="['/login']"
-                *ngIf="!auth.verifyToken()"
-                >Login</a
-              >
-            </li>
-          </ul>
-        </div>
+    <ul class="main-menu">
+      <li>
+        <a [routerLink]="['/dashboard']" routerLinkActive="active">Dashboard</a>
+      </li>
+      <li>
+        <a [routerLink]="['/students']" routerLinkActive="active">Students</a>
+      </li>
+      <li>
+        <a [routerLink]="['/subjects']" routerLinkActive="active">Subjects</a>
+      </li>
+      <li>
+        <a [routerLink]="['/time-table']" routerLinkActive="active"
+          >Time Table</a
+        >
+      </li>
+      <li>
+        <a [routerLink]="['/teachers']" routerLinkActive="active">Teachers</a>
+      </li>
+      <li>
+        <a [routerLink]="['/accounts']" routerLinkActive="active">Accounts</a>
+      </li>
+      <li>
+        <a [routerLink]="['/users']" routerLinkActive="active">Users</a>
+      </li>
+    </ul>
+    <div class="account">
+      <ul>
+        <li>
+          <a class="user" *ngIf="auth.verifyToken()">{{
+            auth.decodeToken()?.email
+          }}</a>
+        </li>
+        <li>
+          <a
+            (click)="auth.logout()"
+            class="logout-btn"
+            *ngIf="auth.verifyToken()"
+            >Logout</a
+          >
+        </li>
+        <li>
+          <a
+            class="login-btn"
+            [routerLink]="['/login']"
+            *ngIf="!auth.verifyToken()"
+            >Login</a
+          >
+        </li>
+      </ul>
+    </div>
   </eden-apps-ui-header>
   <eden-apps-ui-sidebar>
     <div class="brand">
@@ -54,23 +57,29 @@
     </div>
     <div class="advert">
       <h3>
-        Welcome User
+        Welcome <br />
+        <span *ngIf="auth.verifyToken(); else noUser">
+          <a class="user">{{ auth.decodeToken().email }}</a>
+          <br>
+          <a
+            (click)="auth.logout()"
+            class="logout-btn"
+            *ngIf="auth.verifyToken()"
+            >Logout</a
+          >
+        </span>
+        <ng-template #noUser>User</ng-template>
       </h3>
-      <p>
+      <p class="slogan">
         Eden, breaking new grounds!
       </p>
     </div>
     <ul class="sidebar-menu">
       <li>
-        <a [routerLink]="['/']" routerLinkActive="active">Dashboard</a>
+        <a [routerLink]="['/dashboard']" routerLinkActive="active">Dashboard</a>
       </li>
       <li>
         <a [routerLink]="['/students']" routerLinkActive="active">Students</a>
-        <div *ngIf="thisRoute === 'students'">
-          <ul class="submenu">
-            <a [routerLink]="['students', 'new']">New Student</a>
-          </ul>
-        </div>
       </li>
       <li>
         <a [routerLink]="['/subjects']" routerLinkActive="active">Subjects</a>
