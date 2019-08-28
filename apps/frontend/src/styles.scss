@@ -204,6 +204,7 @@ ul {
   border: 0;
   outline: none;
   margin: 10px auto;
+  cursor: pointer;
   // border-radius: 5%;
 
   &:disabled {
@@ -221,14 +222,6 @@ ul {
 .danger {
   color: white;
   background-color: red;
-  // border: 1px solid transparent;
-
-  // &:not(:disabled):hover {
-  //   color: red;
-  //   background-color: white;
-  //   border-color: red;
-  //   cursor: pointer;
-  // }
 }
 
 .success {
@@ -436,6 +429,18 @@ form {
     color: red;
     background-color: white;
     border: 1px solid red;
+  }
+}
+
+.theme-button {
+  background-color: $primary-color;
+  color: white;
+  border: 1px solid $primary-color;
+
+  &:hover {
+    color: $primary-color;
+    background-color: white;
+    border: 1px solid $primary-color;
   }
 }
 
