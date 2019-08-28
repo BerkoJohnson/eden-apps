@@ -58,13 +58,13 @@ export class StudentController {
 
       // @TODO check if maybe a search string was sent
       const skipPages = (page - 1) * itemsPerPage;
-      const studentCount = await Student.countDocuments();
+      const studentCount = await Student.estimatedDocumentCount();
 
       const nameReg = new RegExp(searchTerm, 'gi');
       const itemsCount = await Student.find({})
         .where('name', nameReg)
         .where('isActive', true)
-        .countDocuments();
+        .estimatedDocumentCount();
       const students = await Student.find({})
         .where('name', nameReg)
         .where('isActive', true)
@@ -252,9 +252,8 @@ export class StudentController {
       ];
       const today = new Date().getDay();
       const todayName = daysInWeek[today];
-
       const m = new Date().getMonth();
-      const count = await Student.countDocuments();
+      const count = await Student.estimatedDocumentCount();
       const students = await Student.find()
         .populate({
           path: 'registrations',
@@ -264,15 +263,16 @@ export class StudentController {
         .where('registrations')
         .ne([]);
 
-      // const subjects = await Subject.find().populate({ path: 'periods' });
-      const lessonsToday = await Period.find()
+        const lessonsToday = await Period.find()
         .populate({
           path: 'subject',
           select: '-periods'
         })
         .where('day')
         .equals(todayName);
-
+        // console.log(count, students, lessonsToday);
+        
+        // const subjects = await Subject.find().populate({ path: 'periods' });
       const lessonArray: any = [];
       for (let i = 0; i < lessonsToday.length; i++) {
         const currentLesson = lessonsToday[i];

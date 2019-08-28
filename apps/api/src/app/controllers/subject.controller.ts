@@ -8,13 +8,10 @@ export class SubjectController {
   public static async getSubject(req: Request, res: Response) {
     try {
       const id: string = req.params.id;
-      const subject = await Subject.findById(id)
-        .populate(
-          {
-            path: 'teacher periods',
-            select: '-password -subjects'
-          }
-        )
+      const subject = await Subject.findById(id).populate({
+        path: 'teacher periods',
+        select: '-password -subjects'
+      });
       res.send(subject);
     } catch (e) {
       res.status(500).send(e);
@@ -63,7 +60,13 @@ export class SubjectController {
   public static async deleteSubject(req: Request, res: Response) {
     try {
       const id: string = req.params.id;
-      await Subject.findByIdAndDelete(id).exec();
+      const deletedSubject = await Subject.findByIdAndDelete(id).exec();
+      if (deletedSubject) {
+        // tslint:disable-next-line: forin
+        for (const p of deletedSubject.periods) {
+          await Period.findByIdAndRemove(p);
+        }
+      }
       res.status(204).send();
     } catch (error) {
       res.status(500).send();
@@ -141,7 +144,7 @@ export class SubjectController {
       const totalSubjects = await Subject.countDocuments();
       const itemsFound = await Subject.find({})
         .where('title', titleReg)
-        .count();
+        .estimatedDocumentCount();
 
       const subjects = await Subject.find({})
         .where('title', titleReg)
@@ -167,8 +170,7 @@ export class SubjectController {
     try {
       const month: string = req.query.month;
       const subject: string = req.params.subject;
-      const subjectRegForThisMonth = await Registration.
-        find()
+      const subjectRegForThisMonth = await Registration.find()
         .where('subjects', subject)
         .where('month', month);
 

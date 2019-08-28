@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { ISubject, SubjectService } from '../../../services/subject.service';
 import { AuthService } from '../../../services/auth.service';
+import { Subject } from '@eden-apps/subject';
 
 
 @Component({
@@ -12,7 +13,7 @@ import { AuthService } from '../../../services/auth.service';
   styleUrls: ['./view-subject.component.scss']
 })
 export class ViewSubjectComponent implements OnInit {
-  subject: ISubject;
+  subject: Subject;
 
   constructor(
     private subjectsService: SubjectService,

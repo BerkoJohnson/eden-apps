@@ -12,6 +12,7 @@ export class UserRoutes implements IRoute {
     // User Controller
     app
       .route(`${USER_URL}`)
+      // .post(UserController.createUser)
       .post([checkJWT], UserController.createUser)
       .get([checkJWT], UserController.getUsers);
 

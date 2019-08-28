@@ -44,7 +44,7 @@ export class TimeTableService {
     );
   }
 
-  getPeriods(page = 1, limit = 10, day = ''): Observable<PeriodsList> {
+  getPeriods(page = 1, limit = 15, day = ''): Observable<PeriodsList> {
     return this.http
       .get<PeriodsList>(`${URL}?page=${page}&limit=${limit}&day=${day}`)
       .pipe(

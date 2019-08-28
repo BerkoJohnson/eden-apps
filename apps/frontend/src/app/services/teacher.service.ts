@@ -3,6 +3,7 @@ import {ISubject} from './subject.service';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {map, tap} from 'rxjs/operators';
+import { Subject } from '@eden-apps/subject';
 
 
 export interface ITeacher {
@@ -82,7 +83,7 @@ export class TeacherService {
     );
   }
 
-  assignTeacher(subject: ISubject, id: string) {
+  assignTeacher(subject: Subject, id: string) {
     return this.http.put('/api/teachers/assign-subject?id=' + id, {
       subject: subject._id
     });

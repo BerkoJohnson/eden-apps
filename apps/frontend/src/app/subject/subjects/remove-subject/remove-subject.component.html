@@ -1,3 +1,14 @@
-<p>
-  remove-subject works!
-</p>
+<div *ngIf="subject">
+  <form class="form form-v1">
+    <h5 class="form-title">Removing Subject</h5>
+    <div class="body">
+      <div class="panel">
+        <span style="color: white;"> Removing this subject: {{ subject.title }}?</span>
+        <span class="actions">
+          <a class="red" (click)="deleteSubject()">Yes, Remove it</a>
+          <a class="blue" routerLink="/subjects">Go back</a>
+        </span>
+      </div>
+    </div>
+  </form>
+</div>

@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { ITeacher } from './teacher.service';
 import { IStudent, IRegistration } from './student.service';
+import { Subject } from '@eden-apps/subject';
 
 export interface ISubject {
   _id?: string;
@@ -16,7 +17,7 @@ export interface ISubject {
 }
 
 export interface ISubjectPayload {
-  subjects: ISubject[];
+  subjects: Subject[];
   count: number;
   hasNextPage: boolean;
   hasPrevPage: boolean;
@@ -36,13 +37,13 @@ export interface IPeriod {
 })
 export class SubjectService {
   // tslint:disable-next-line: variable-name
-  _subject = new BehaviorSubject<ISubject>(null);
+  _subject = new BehaviorSubject<Subject>(null);
   subject$ = this._subject.asObservable();
   // tslint:disable-next-line: variable-name
   private _subjects = new BehaviorSubject<ISubjectPayload>(null);
   subjects$ = this._subjects.asObservable();
   // tslint:disable-next-line:variable-name
-  private _allSubjects = new BehaviorSubject<ISubject[]>(null);
+  private _allSubjects = new BehaviorSubject<Subject[]>(null);
   allSubjects$ = this._allSubjects.asObservable();
 
   constructor(private http: HttpClient) {
@@ -56,14 +57,14 @@ export class SubjectService {
 
   loadAllSubjects() {
     this.http
-      .get<ISubject[]>('/api/subjects/list')
+      .get<Subject[]>('/api/subjects/list')
       .subscribe(subjects => {
         this._allSubjects.next(subjects);
       });
   }
 
-  getSubjects(): Observable<ISubject[]> {
-    return this.http.get<ISubject[]>('/api/subjects');
+  getSubjects(): Observable<Subject[]> {
+    return this.http.get<Subject[]>('/api/subjects');
   }
 
   getByPage(page = 1, limit = 15, search = ''): Observable<ISubjectPayload> {
@@ -79,9 +80,19 @@ export class SubjectService {
       );
   }
 
-  createNewSubject(FormData: ISubject) {
+  createNewSubject(FormData: Subject) {
     return this.http
       .post('/api/subjects', FormData, { observe: 'response' })
+      .pipe(
+        tap(_ => {
+          this.loadSubjects();
+        })
+      );
+  }
+
+  updateSubject(id: string, FormData: Subject) {
+    return this.http
+      .patch(`/api/subjects/${id}`, FormData, { observe: 'response' })
       .pipe(
         tap(_ => {
           this.loadSubjects();
@@ -121,13 +132,17 @@ export class SubjectService {
   }
 
 
-  getSubject(id: string): Observable<ISubject> {
-    return this.http.get<ISubject>(`/api/subjects/${id}`).pipe(
+  getSubject(id: string): Observable<Subject> {
+    return this.http.get<Subject>(`/api/subjects/${id}`).pipe(
       map(d => {
         this._subject.next(d);
         return d;
       })
     );
+  } 
+
+  removeSubject(id: string): Observable<Subject> {
+    return this.http.delete<Subject>(`/api/subjects/${id}`);
   }
 
   getSubjectRegs(id: string, month: string): Observable<IRegistration> {
