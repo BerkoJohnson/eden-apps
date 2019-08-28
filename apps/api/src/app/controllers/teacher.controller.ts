@@ -72,7 +72,7 @@ export class TeacherController {
       public static async getByPage(req: Request, res: Response) {
         try {
           const page: number = +req.query.page || 1;
-          const itemsPerPage: number = +req.query.limit || 5;
+          const itemsPerPage: number = +req.query.limit || 15;
           const searchTerm: string = req.query.search || '';
 
           // @TODO check if maybe a search string was sent

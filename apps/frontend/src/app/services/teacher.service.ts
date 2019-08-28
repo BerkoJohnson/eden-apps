@@ -51,7 +51,7 @@ export class TeacherService {
     return this.http.get<ListPayload>('/api/teachers');
   }
 
-  getByPage(page = 1, limit = 5, search = ''): Observable<ListPayload> {
+  getByPage(page = 1, limit = 15, search = ''): Observable<ListPayload> {
     return this.http
       .get<ListPayload>(`/api/teachers?page=${page}&limit=${limit}&search=${search}`)
       .pipe(
